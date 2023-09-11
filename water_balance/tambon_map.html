@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Map</title>
-    <script src="assets/data/poly2.js"></script>
+    <script src="assets/data/tambon.js"></script>
     <script src="assets/js/leaflet/leaflet.js"></script>
 </head>
 <body>
@@ -27,7 +27,7 @@
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
 
-        var polygon = L.geoJSON(poly2).addTo(map);
+        var polygon = L.geoJSON(tambon).addTo(map);
     </script>
 </body>
 </html>
