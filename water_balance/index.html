@@ -21,42 +21,56 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <!-- Nav bar -->
-        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-            <a href="/"
-                class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-                <span class="fs-4">Water Balance (ระบบสมดุลน้ำ)</span>
-            </a>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a href="/" class="navbar-brand">
+                    Water Balance (ระบบสมดุลน้ำ)
+                </a>
 
-            <ul class="nav nav-pills">
-                <li class="nav-item"><a href="index.html" class="nav-link active" aria-current="page">หน้าแรก</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">สถานการณ์น้ำ</a></li>
-                <li class="nav-item dropdown">
-                    <!-- Updated dropdown toggle button with Bootstrap 5 attributes -->
-                    <a href="#" class="nav-link dropdown-toggle" id="submenuDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="true">สมดุลน้ำ</a>
-                    <ul class="dropdown-menu" aria-labelledby="submenuDropdown">
-                        <!-- Updated dropdown items -->
-                        <li><a class="dropdown-item" href="tambon_dashboard.html">พื้นที่ 59 ตำบล</a></li>
-                        <li><a class="dropdown-item" href="mooban_dashboard.html">พื้นที่ 43 หมู่บ้าน</a></li>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a href="index.html" class="nav-link" aria-current="page">หน้าแรก</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">สถานการณ์น้ำ</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" id="submenuDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">สมดุลน้ำ</a>
+                            <ul class="dropdown-menu" aria-labelledby="submenuDropdown">
+                                <li><a class="dropdown-item" href="tambon_dashboard.html">พื้นที่ 59 ตำบล</a></li>
+                                <li><a class="dropdown-item" href="mooban_dashboard.html">พื้นที่ 43 หมู่บ้าน</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="about.html" class="nav-link">เพิ่มเติม</a>
+                        </li>
                     </ul>
-                </li>
-                <li class="nav-item"><a href="about.html" class="nav-link">เพิ่มเติม</a></li>
-            </ul>
-            <div class="col-md-3 text-end">
-                <a href="login.html" class="btn btn-outline-primary me-2">เข้าสู่ระบบ</a>
-                <!-- Add any additional links or buttons here -->
+                    <div class="mx-3">
+                        <!-- Content of the div goes here -->
+                    </div>
+                    <div class="text-end">
+                        <a href="login.html" class="btn btn-outline-primary me-2">เข้าสู่ระบบ</a>
+                        <!-- Add any additional links or buttons here -->
+                    </div>
+                </div>
             </div>
-        </header>
+        </nav>
     </div>
     <!-- Nav bar -->
     <!-- Hero -->
-    <div class="container col-xxl-8 px-4 py-5">
-        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+    <div class="container col-xxl-12">
+        <div class="row flex-lg-row-reverse align-items-center g-5 py-4">
             <div class="col-sm-1 col-md-12 col-lg-6">
-
-                <img src="assets/images/web/map.png" class="d-block mx-lg-auto img-fluid" alt="สมดุลน้ำ" loading="lazy">
+                <img src="assets/images/web/901 เสด็จครั้งล่าสุด23 เม_ย_ 40.png" class="d-block mx-lg-auto img-fluid rounded" alt="สมดุลน้ำ" loading="lazy">
             </div>
             <div class="col-lg-6">
                 <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">เขาหินซ้อน</h1>
@@ -78,7 +92,7 @@
         <div class="row">
             <div class="col-sm-1 col-md-3 col-lg-3">
                 <div class="card">
-                    <img src="assets/images/web/map.png" class="card-img-top" alt="...">
+                    <img src="assets/images/web/map.png" class="card-img-top" alt="..." width="200" height="200">
                     <div class="card-body">
                         <p class="card-text">ครอบคลุมพื้นที่ 59 ตำบล 43 หมู่บ้าน
                             ของศูนย์ศึกษาการพัฒนาเขาหินซ้อนอันเนื่องมาจากพระราชดำริ จังหวัดฉะเชิงเทรา</p>
@@ -87,7 +101,7 @@
             </div>
             <div class="col-sm-1 col-md-3 col-lg-3">
                 <div class="card">
-                    <img src="assets/images/web/map.png" class="card-img-top" alt="...">
+                    <img src="assets/images/web/chaohinsorn.jpg" class="card-img-top" alt="..." width="200" height="200">
                     <div class="card-body">
                         <p class="card-text">ครอบคลุมพื้นที่ 59 ตำบล 43 หมู่บ้าน
                             ของศูนย์ศึกษาการพัฒนาเขาหินซ้อนอันเนื่องมาจากพระราชดำริ จังหวัดฉะเชิงเทรา</p>
@@ -96,7 +110,7 @@
             </div>
             <div class="col-sm-1 col-md-3 col-lg-3">
                 <div class="card">
-                    <img src="assets/images/web/map.png" class="card-img-top" alt="...">
+                    <img src="assets/images/web/อ่างเก็บน้ำห้วยเจ๊ก.jpg" class="card-img-top" alt="..." width="200" height="200">
                     <div class="card-body">
                         <p class="card-text">ครอบคลุมพื้นที่ 59 ตำบล 43 หมู่บ้าน
                             ของศูนย์ศึกษาการพัฒนาเขาหินซ้อนอันเนื่องมาจากพระราชดำริ จังหวัดฉะเชิงเทรา</p>
@@ -105,7 +119,7 @@
             </div>
             <div class="col-sm-1 col-md-3 col-lg-3">
                 <div class="card">
-                    <img src="assets/images/web/map.png" class="card-img-top" alt="...">
+                    <img src="assets/images/web/E13075547-5.jpg" class="card-img-top" alt="..." width="200" height="200">
                     <div class="card-body">
                         <p class="card-text">ครอบคลุมพื้นที่ 59 ตำบล 43 หมู่บ้าน
                             ของศูนย์ศึกษาการพัฒนาเขาหินซ้อนอันเนื่องมาจากพระราชดำริ จังหวัดฉะเชิงเทรา</p>

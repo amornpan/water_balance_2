@@ -21,44 +21,77 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <!-- Nav bar -->
-        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-            <a href="/"
-                class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-                <span class="fs-4">Water Balance (ระบบสมดุลน้ำ)</span>
-            </a>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a href="/" class="navbar-brand">
+                    Water Balance (ระบบสมดุลน้ำ)
+                </a>
 
-            <ul class="nav nav-pills">
-                <li class="nav-item"><a href="index.html" class="nav-link" aria-current="page">หน้าแรก</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">สถานการณ์น้ำ</a></li>
-                <li class="nav-item dropdown">
-                    <!-- Updated dropdown toggle button with Bootstrap 5 attributes -->
-                    <a href="#" class="nav-link dropdown-toggle" id="submenuDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="true">สมดุลน้ำ</a>
-                    <ul class="dropdown-menu" aria-labelledby="submenuDropdown">
-                        <!-- Updated dropdown items -->
-                        <li><a class="dropdown-item" href="tambon_dashboard.html">พื้นที่ 59 ตำบล</a></li>
-                        <li><a class="dropdown-item" href="mooban_dashboard.html">พื้นที่ 43 หมู่บ้าน</a></li>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a href="index.html" class="nav-link" aria-current="page">หน้าแรก</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">สถานการณ์น้ำ</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" id="submenuDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">สมดุลน้ำ</a>
+                            <ul class="dropdown-menu" aria-labelledby="submenuDropdown">
+                                <li><a class="dropdown-item" href="tambon_dashboard.html">พื้นที่ 59 ตำบล</a></li>
+                                <li><a class="dropdown-item" href="mooban_dashboard.html">พื้นที่ 43 หมู่บ้าน</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="about.html" class="nav-link">เพิ่มเติม</a>
+                        </li>
                     </ul>
-                </li>
-                <li class="nav-item"><a href="about.html" class="nav-link active">เพิ่มเติม</a></li>
-            </ul>
-            <div class="col-md-3 text-end">
-                <a href="login.html" class="btn btn-outline-primary me-2">เข้าสู่ระบบ</a>
-                <!-- Add any additional links or buttons here -->
+                    <div class="mx-3">
+                        <!-- Content of the div goes here -->
+                    </div>
+                    <div class="text-end">
+                        <a href="login.html" class="btn btn-outline-primary me-2">เข้าสู่ระบบ</a>
+                        <!-- Add any additional links or buttons here -->
+                    </div>
+                </div>
             </div>
-        </header>
+        </nav>
     </div>
     <!-- Nav bar -->
 
 
 
     <!-- Hero -->
-    <div class="px-4 py-5 my-5 text-center">
+    <div class="px-4 py-4 my-4 text-center">
         <!-- <img class="d-block mx-auto mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
-        <h3 class="display-5 fw-bold text-body-emphasis">เขาหินซ้อน</h3>
+        <h5 class="display-5 fw-bold text-body-emphasis">ศูนย์ศึกษาการพัฒนาเขาหินซ้อนอันเนื่องมาจากพระราชดำริ</h5>
+        <p class="h4">อำเภอพนมสารคาม จังหวัดฉะเชิงเทรา</p>
         <div class="col-lg-6 mx-auto">
+
+
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-5">
+                <img src="assets/images/web/901 เสด็จครั้งล่าสุด23 เม_ย_ 40.png" class="img-fluid rounded" alt="Responsive image">
+            </div>
+
+            <p class="lead mb-4">
+                ศูนย์ศึกษาการพัฒนาเขาหินซ้อนอันเนื่องมาจากพระราชดำริ ได้รับการสถาปนาจากพระบาทสมเด็จพระเจ้าอยู่หัว เมื่อวันที่ 8 สิงหาคม พ.ศ. 2522 ในคราวเสด็จพระราชดำเนินมาเปิดศาลพระบวรราชานุสาวรีย์ของพระบาท
+
+                เมื่อวันที่ 8 สิงหาคม พุทธศักราช 2522 พระบาทสมเด็จพระเจ้าอยู่หัว เสด็จพระราชดำเนิน ทรงเปิดศาลบวรราชานุสาวรีย์พระบาทสมเด็จพระปิ่นเกล้าเจ้าอยู่หัว ณ ตำบลเขาหินซ้อน อำเภอพนมสารคาม จังหวัดฉะเชิงเทรา ราษฎรได้น้อมเกล้าฯ ถวายที่ดิน หมู่ที่ 2 ตำบลเขาหินซ้อน อำเภอพนมสารคาม จังหวัดฉะเชิงเทรา จำนวน 264 ไร่ พระองค์ได้เสด็จฯ ทอดพระเนตรที่ดินดังกล่าว และทรงมีพระราชดำริ กับเจ้าหน้าที่อำเภอ จังหวัด และหน่วยราชการต่าง ๆ ได้แก่ กรมพัฒนาที่ดิน กรมชลประทาน กรมป่าไม้ กรมปศุสัตว์ ให้ร่วมกันพัฒนาพื้นที่แห่งนี้จัดทำเป็นศูนย์ศึกษาตัวอย่าง สาธิตการพัฒนาด้านการเกษตรกรรมและงานศิลปาชีพ เพื่อเป็นแหล่งให้เกษตรกรตลอดจนผู้สนใจได้เข้าชมศึกษาค้นคว้าหาความรู้เพิ่มเติมได้ จากพระราชดำริข้างต้น หน่วยงานที่เกี่ยวข้องรวมทั้งภาคเอกชนได้ประชุมปรึกษาหารือกัน มอบหมายให้กรมพัฒนาที่ดินเป็นหน่วยงานหลัก ดังนั้นกระทรวงเกษตรและสหกรณ์จึงได้แต่งตั้งคณะกรรมการบริหารงานขึ้นคณะหนึ่ง เรียกว่า “คณะกรรมการบริหารและกรรมการที่ปรึกษาศูนย์ศึกษาการพัฒนาเขาหินซ้อนฯ อำเภอพนมสารคาม จังหวัดฉะเชิงเทรา” คณะกรรมการบริหารฯ ได้ทำหนังสือในนามของ กรมพัฒนาที่ดิน กส. 1801/1094 ลงวันที่ 19 กุมภาพันธ์ 2523 ถึงสำนักราชเลขาธิการ เพื่อนำความกราบบังคมทูลพระกรุณาขอรับพระราชทานชื่อของศูนย์เพื่อเป็นสิริมงคลแก่การดำเนินโครงการสนองพระราชดำริสืบไป และทางสำนักราชเลขาธิการได้แจ้งให้ทราบตามหนังสือ ที่ รล.002/3041 ลงวันที่ 29 มีนาคม 2523 ทรงพระกรุณาโปรดเกล้าฯ ให้ชื่อว่า “ศูนย์ศึกษาการพัฒนาเขาหินซ้อน อันเนื่องมาจากพระราชดำริ อำเภอพนมสารคาม จังหวัดฉะเชิงเทรา”
+
+            </p>
+
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-5">
+                <img src="assets/images/web/chaohinsorn.jpg" class="img-fluid rounded" alt="Responsive image">
+            </div>
+
             <p class="lead mb-4">
                 ระบบสมดุลน้ำหมายถึงการควบคุมและรักษาสมดุลระหว่างปริมาณน้ำที่เข้ามาในระบบน้ำและปริมาณน้ำที่ถูกเสียไปหรือใช้งานในระบบน้ำเพื่อให้ระบบน้ำทำงานอย่างเหมาะสมและยั่งยืน
                 คำว่า "สมดุลน้ำ"
@@ -78,9 +111,11 @@
                 และมีความสำคัญในการจัดการทรัพยากรน้ำให้มีประสิทธิภาพและลดความเสี่ยงที่เกิดขึ้นจากการขาดแคลนน้ำหรือน้ำท่วม.
 
             </p>
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                <img src="assets/images/web/map.png" class="img-fluid" alt="Responsive image">
+
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-5">
+                <img src="assets/images/web/map.png" class="img-fluid rounded" alt="Responsive image">
             </div>
+            
         </div>
     </div>
     <!-- Hero -->

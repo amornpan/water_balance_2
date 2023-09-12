@@ -2,7 +2,7 @@
 FROM nginx:latest
 
 # Copy your custom Nginx configuration file (if needed)
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY ./water_balance/nginx.conf /etc/nginx/nginx.conf
 
 # Optionally, copy your website files into the container
 COPY ./water_balance /usr/share/nginx/html

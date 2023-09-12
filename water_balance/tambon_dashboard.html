@@ -31,45 +31,82 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <!-- Nav bar -->
-        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-            <a href="/"
-                class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-                <span class="fs-4">Water Balance (ระบบสมดุลน้ำ)</span>
-            </a>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a href="/" class="navbar-brand">
+                    Water Balance (ระบบสมดุลน้ำ)
+                </a>
 
-            <ul class="nav nav-pills">
-                <li class="nav-item"><a href="index.html" class="nav-link " aria-current="page">หน้าแรก</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">สถานการณ์น้ำ</a></li>
-                <li class="nav-item dropdown">
-                    <!-- Updated dropdown toggle button with Bootstrap 5 attributes -->
-                    <a href="#" class="nav-link dropdown-toggle active" id="submenuDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="true">สมดุลน้ำ</a>
-                    <ul class="dropdown-menu" aria-labelledby="submenuDropdown">
-                        <!-- Updated dropdown items -->
-                        <li><a class="dropdown-item active" href="tambon_dashboard.html">พื้นที่ 59 ตำบล</a></li>
-                        <li><a class="dropdown-item" href="mooban_dashboard.html">พื้นที่ 43 หมู่บ้าน</a></li>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a href="index.html" class="nav-link" aria-current="page">หน้าแรก</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">สถานการณ์น้ำ</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" id="submenuDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">สมดุลน้ำ</a>
+                            <ul class="dropdown-menu" aria-labelledby="submenuDropdown">
+                                <li><a class="dropdown-item" href="tambon_dashboard.html">พื้นที่ 59 ตำบล</a></li>
+                                <li><a class="dropdown-item" href="mooban_dashboard.html">พื้นที่ 43 หมู่บ้าน</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="about.html" class="nav-link">เพิ่มเติม</a>
+                        </li>
                     </ul>
-                </li>
-                <li class="nav-item"><a href="about.html" class="nav-link">เพิ่มเติม</a></li>
-            </ul>
-            <div class="col-md-3 text-end">
-                <a href="login.html" class="btn btn-outline-primary me-2">เข้าสู่ระบบ</a>
-                <!-- Add any additional links or buttons here -->
+                    <div class="mx-3">
+                        <!-- Content of the div goes here -->
+                    </div>
+                    <div class="text-end">
+                        <a href="login.html" class="btn btn-outline-primary me-2">เข้าสู่ระบบ</a>
+                        <!-- Add any additional links or buttons here -->
+                    </div>
+                </div>
             </div>
-        </header>
+        </nav>
     </div>
     <!-- Nav bar -->
 
-    <div class="container align-content-center">
-        <div class="row">
 
-            <div class="col-md-8 align-content-lg-center">
-                <div id="map"></div>
+
+    <div class="container text-center">
+        <div class="row align-items-center my-3">
+            <div class="col-12 align-items-center">
+                <h4>ระบบสมดุลน้ำ พื้นที่ 59 ตำบล</h4>
             </div>
         </div>
     </div>
+
+    <div class="container-fluid text-center">
+        <div class="row mx-n1 my-n1">
+            <div class="col-sm-12 col-md-12 col-lg-6">
+                <div id="map"></div>
+            </div>
+            
+            <div class="col-sm-12 col-md-12 col-lg-6">
+                <div class="row mx-n1 my-n3">
+                    <div class="col-sm-12 col-md-12 col-lg-6 my-3">
+                        <div class="alert alert-danger" role="alert">text 1</div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-6 my-3">
+                        <div class="alert alert-danger" role="alert">text 2</div>
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+
+
     <div class="my-5"></div>
     <div class="container">
         <!-- footer -->
