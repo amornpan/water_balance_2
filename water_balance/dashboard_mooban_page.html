@@ -280,13 +280,19 @@
   <script>
     // Ensure the GeoJSON data is loaded before using it
     var map = L.map('map', {
-      zoom: 11,
-      minZoom: 11,
-      // maxZoom: 19,
-      maxZoom: 0,
       keyboard: false,
       dragging: false,
-    }).setView([13.735213113188397, 101.47385332084065]);
+      zoomControl: false,
+      boxZoom: false,
+      doubleClickZoom: false,
+      scrollWheelZoom: false,
+      tap: false,
+      touchZoom: false,
+      zoom: 11,
+      minZoom: 11,
+      maxZoom: 0,
+      center: [13.735213113188397, 101.47385332084065],
+    });
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
