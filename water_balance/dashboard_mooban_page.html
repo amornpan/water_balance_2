@@ -301,6 +301,45 @@
     }).addTo(map);
 
     var polygon = L.geoJSON(mooban).addTo(map);
+
+
+    var geojsonLayer = L.geoJSON(mooban, {
+      onEachFeature: function (feature, layer) {
+        // กำหนดสีเริ่มต้นให้เป็นสีฟ้าอ่อนและความโปร่งใสเป็น 0.5
+        layer.setStyle({
+          fillColor: 'lightblue', // สีเริ่มต้น
+          fillOpacity: 0.5,       // ความโปร่งใส
+        });
+
+        layer.on('mouseover', function (e) {
+          // เมาส์ Hover บนพื้นที่ GeoJSON
+          var properties = e.target.feature.properties;
+          var popupContent = "ตำบล: " + properties.TAM_NAME + "<br>" +
+            "อำเภอ: " + properties.AMPHOE_T + "<br>" +
+            "จังหวัด: " + properties.PROV_NAM_T + "<br>" +
+            "ขนาดพื้นที่: " + properties.AREA + " sq.km";
+
+          layer.bindPopup(popupContent).openPopup();
+
+          // เปลี่ยนสีเมื่อ Hover
+          layer.setStyle({
+            fillColor: 'blue', // สีที่คุณต้องการเมื่อ Hover
+            fillOpacity: 0.7,   // ความโปร่งใสของสี
+          });
+        });
+
+        layer.on('mouseout', function () {
+          // เมาส์ออกจากพื้นที่ GeoJSON
+          layer.closePopup();
+
+          // กลับไปสีเริ่มต้นและความโปร่งใส
+          layer.setStyle({
+            fillColor: 'lightblue', // สีเริ่มต้น
+            fillOpacity: 0.5,       // ความโปร่งใส
+          });
+        });
+      }
+    }).addTo(map);
   </script>
 
 
