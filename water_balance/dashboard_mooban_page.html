@@ -31,6 +31,12 @@
     }
   </style>
 
+<<<<<<< HEAD
+=======
+<link rel="stylesheet" href="//unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css" type="text/css">
+<script src="//unpkg.com/gestureHandling: true-handling"></script>
+
+>>>>>>> 5120a455c415ec1cd3e0fe133740ad10cec07d67
 
 </head>
 
@@ -280,6 +286,7 @@
   <script>
     // Ensure the GeoJSON data is loaded before using it
     var map = L.map('map', {
+<<<<<<< HEAD
       keyboard: false,
       dragging: false,
       zoomControl: false,
@@ -292,6 +299,21 @@
       minZoom: 11,
       maxZoom: 0,
       center: [13.735213113188397, 101.47385332084065],
+=======
+      // keyboard: false,
+      // dragging: false,
+      // zoomControl: false,
+      // boxZoom: false,
+      // doubleClickZoom: false,
+      // scrollWheelZoom: false,
+      // tap: false,
+      // touchZoom: false,
+      // minZoom: 11,
+      // maxZoom: 0,
+      zoom: 11,
+      center: [13.735213113188397, 101.47385332084065],
+      gestureHandling: true
+>>>>>>> 5120a455c415ec1cd3e0fe133740ad10cec07d67
     });
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
