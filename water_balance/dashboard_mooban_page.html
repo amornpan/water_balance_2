@@ -31,12 +31,9 @@
     }
   </style>
 
-<<<<<<< HEAD
-=======
-<link rel="stylesheet" href="//unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css" type="text/css">
-<script src="//unpkg.com/gestureHandling: true-handling"></script>
-
->>>>>>> 5120a455c415ec1cd3e0fe133740ad10cec07d67
+  <link rel="stylesheet" href="//unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css"
+    type="text/css">
+  <script src="//unpkg.com/leaflet-gesture-handling"></script>
 
 </head>
 
@@ -286,20 +283,6 @@
   <script>
     // Ensure the GeoJSON data is loaded before using it
     var map = L.map('map', {
-<<<<<<< HEAD
-      keyboard: false,
-      dragging: false,
-      zoomControl: false,
-      boxZoom: false,
-      doubleClickZoom: false,
-      scrollWheelZoom: false,
-      tap: false,
-      touchZoom: false,
-      zoom: 11,
-      minZoom: 11,
-      maxZoom: 0,
-      center: [13.735213113188397, 101.47385332084065],
-=======
       // keyboard: false,
       // dragging: false,
       // zoomControl: false,
@@ -308,12 +291,11 @@
       // scrollWheelZoom: false,
       // tap: false,
       // touchZoom: false,
+      zoom: 11,
       // minZoom: 11,
       // maxZoom: 0,
-      zoom: 11,
       center: [13.735213113188397, 101.47385332084065],
-      gestureHandling: true
->>>>>>> 5120a455c415ec1cd3e0fe133740ad10cec07d67
+      gestureHandling: true,
     });
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -337,8 +319,8 @@
           // เมาส์ Hover บนพื้นที่ GeoJSON
           var properties = e.target.feature.properties;
           var popupContent = "รหัส: " + properties.ID + "<br>" +
-          "หมู่บ้าน: " + properties.MOO_NAME + "<br>" +
-          "ตำบล: " + properties.TAM_NAME + "<br>" +
+            "หมู่บ้าน: " + properties.MOO_NAME + "<br>" +
+            "ตำบล: " + properties.TAM_NAME + "<br>" +
             "อำเภอ: " + properties.AMPHOE_T + "<br>" +
             "จังหวัด: " + properties.PROV_NAM_T + "<br>" +
             "ขนาดพื้นที่: " + properties.AREA + " sq.km";
