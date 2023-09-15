@@ -1,0 +1,7 @@
+SECRET_KEY = 'your_secret_key'
+DATABASE_URI = '113.53.253.56'
+DB_USERNAME = 'postgres'
+DB_PASSWORD = 'p@ssw0rd!@#$'
+PGADMIN_DEFAULT_EMAIL = 'amornpan@gmail.com'
+POSTGRES_PASSWORD = 'p@ssw0rd!@#$'
+PGADMIN_DEFAULT_PASSWORD = 'p@ssw0rd!@#$'

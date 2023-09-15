@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>สมดุลน้ำ ข้อมูลตำบล</title>
+  <!-- นำเข้าฟอนต์ Prompt ด้วย <link> แท็กในส่วนหัว -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- ใช้ฟอนต์ Prompt ใน CSS ของคุณ -->
+  <style>
+    body {
+      font-family: 'Prompt', sans-serif;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="assets/data/tambon.js"></script>
+  <style>
+    #map {
+      position: relative;
+      border: 1px solid black;
+      border-radius: 8px;
+      height: 400px;
+      width: 100%;
+    }
+  </style>
+  <link rel="stylesheet" href="//unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css" type="text/css">
+  <script src="//unpkg.com/leaflet-gesture-handling"></script>
+
+</head>
+
+<body>
+  <!-- Nav bar -->
+  <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a href="/" class="navbar-brand">
+          Water Balance (ระบบสมดุลน้ำ)
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a href="index.html" class="nav-link" aria-current="page">หน้าแรก</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">สถานการณ์น้ำ</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle" id="submenuDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">สมดุลน้ำ</a>
+              <ul class="dropdown-menu" aria-labelledby="submenuDropdown">
+                <li><a class="dropdown-item" href="dashboard_tambon_page.html">พื้นที่ 59 ตำบล</a></li>
+                <li><a class="dropdown-item" href="dashboard_mooban_page.html">พื้นที่ 43 หมู่บ้าน</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="about.html" class="nav-link">เพิ่มเติม</a>
+            </li>
+          </ul>
+          <div class="mx-3">
+            <!-- Content of the div goes here -->
+          </div>
+          <div class="text-end">
+            <a href="login.html" class="btn btn-outline-primary me-2">เข้าสู่ระบบ</a>
+            <!-- Add any additional links or buttons here -->
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <!-- Nav bar -->
+
+  <div class="container-fluid">
+
+    <h1 class="h2 my-3 mx-3">ระบบสมดุลน้ำ: พื้นที่ 59 ตำบล</h1>
+    <p class="mx-3">ศูนย์ศึกษาการพัฒนาเขาหินซ้อนอันเนื่องมาจากพระราชดำริ
+      อำเภอพนมสารคาม จังหวัดฉะเชิงเทรา
+    </p>
+
+    <div class="row">
+      <div class="col-12">
+        <div id="map"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row my-4 mx-2">
+    <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
+      <div class="card">
+        <h5 class="card-header">Customers</h5>
+        <div class="card-body">
+          <h5 class="card-title">345k</h5>
+          <p class="card-text">Feb 1 - Apr 1, United States</p>
+          <p class="card-text text-success">18.2% increase since last month</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3 ">
+      <div class="card">
+        <h5 class="card-header">Revenue</h5>
+        <div class="card-body">
+          <h5 class="card-title">$2.4k</h5>
+          <p class="card-text">Feb 1 - Apr 1, United States</p>
+          <p class="card-text text-success">4.6% increase since last month</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+      <div class="card">
+        <h5 class="card-header">Purchases</h5>
+        <div class="card-body">
+          <h5 class="card-title">43</h5>
+          <p class="card-text">Feb 1 - Apr 1, United States</p>
+          <p class="card-text text-danger">2.6% decrease since last month</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+      <div class="card">
+        <h5 class="card-header">Traffic</h5>
+        <div class="card-body">
+          <h5 class="card-title">64k</h5>
+          <p class="card-text">Feb 1 - Apr 1, United States</p>
+          <p class="card-text text-success">2.5% increase since last month</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row my-4 mx-2">
+    <div class="col-12 col-xl-8 mb-4 mb-lg-0">
+      <div class="card">
+        <h5 class="card-header">Latest transactions</h5>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Order</th>
+                  <th scope="col">Product</th>
+                  <th scope="col">Customer</th>
+                  <th scope="col">Total</th>
+                  <th scope="col">Date</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">17371705</th>
+                  <td>Volt Premium Bootstrap 5 Dashboard</td>
+                  <td>johndoe@gmail.com</td>
+                  <td>€61.11</td>
+                  <td>Aug 31 2020</td>
+                  <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
+                </tr>
+                <tr>
+                  <th scope="row">17370540</th>
+                  <td>Pixel Pro Premium Bootstrap UI Kit</td>
+                  <td>jacob.monroe@company.com</td>
+                  <td>$153.11</td>
+                  <td>Aug 28 2020</td>
+                  <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
+                </tr>
+                <tr>
+                  <th scope="row">17371705</th>
+                  <td>Volt Premium Bootstrap 5 Dashboard</td>
+                  <td>johndoe@gmail.com</td>
+                  <td>€61.11</td>
+                  <td>Aug 31 2020</td>
+                  <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
+                </tr>
+                <tr>
+                  <th scope="row">17370540</th>
+                  <td>Pixel Pro Premium Bootstrap UI Kit</td>
+                  <td>jacob.monroe@company.com</td>
+                  <td>$153.11</td>
+                  <td>Aug 28 2020</td>
+                  <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
+                </tr>
+                <tr>
+                  <th scope="row">17371705</th>
+                  <td>Volt Premium Bootstrap 5 Dashboard</td>
+                  <td>johndoe@gmail.com</td>
+                  <td>€61.11</td>
+                  <td>Aug 31 2020</td>
+                  <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
+                </tr>
+                <tr>
+                  <th scope="row">17370540</th>
+                  <td>Pixel Pro Premium Bootstrap UI Kit</td>
+                  <td>jacob.monroe@company.com</td>
+                  <td>$153.11</td>
+                  <td>Aug 28 2020</td>
+                  <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <a href="#" class="btn btn-block btn-light">View all</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-xl-4">
+
+      <div class="card">
+        <h5 class="card-header">อุณหภูมิ ความชื้น 6 เดือนล่าสุด</h5>
+        <div class="card-body">
+          <canvas id="multiAxisLineChart"></canvas>
+        </div>
+      </div>
+
+      <div class="card">
+        <h5 class="card-header">ปริมาณน้ำฝน 6 เดือนล่าสุด</h5>
+        <div class="card-body">
+          <canvas id="barChart"></canvas>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- footer -->
+  <div class="container">
+
+    <div class="container">
+      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <div class="col-md-4 d-flex align-items-center">
+          <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+            <svg class="bi" width="30" height="24">
+              <use xlink:href="#bootstrap"></use>
+            </svg>
+          </a>
+          <span class="mb-3 mb-md-0 text-body-secondary">© 2023 Water Balance, Inc</span>
+        </div>
+
+        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+          <li class="ms-3"><a class="text-body-secondary" href="#"><i class="fa fa-twitter"></i></li>
+          <li class="ms-3"><a class="text-body-secondary" href="#"><i class="fa fa-facebook"></i></li>
+          <li class="ms-3"><a class="text-body-secondary" href="#"><i class="fa fa-instagram"></i></li>
+        </ul>
+      </footer>
+    </div>
+
+  </div>
+  <!-- /footer -->
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Ensure the GeoJSON data is loaded before using it
+    //var map = L.map('map').setView([13.605215264798368, 101.54519139510974], 9);
+    var map = L.map('map', {
+      // keyboard: false,
+      // dragging: false,
+      // zoomControl: false,
+      // boxZoom: false,
+      // doubleClickZoom: false,
+      // scrollWheelZoom: false,
+      // tap: false,
+      // touchZoom: false,
+      // minZoom: 9,
+      // maxZoom: 0,
+      zoom: 9,
+      center: [13.605215264798368, 101.54519139510974],
+      gestureHandling: true
+    });
+
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    var polygon = L.geoJSON(tambon).addTo(map);
+
+    var geojsonLayer = L.geoJSON(tambon, {
+      onEachFeature: function (feature, layer) {
+        // กำหนดสีเริ่มต้นให้เป็นสีฟ้าอ่อนและความโปร่งใสเป็น 0.5
+        layer.setStyle({
+          fillColor: 'lightblue', // สีเริ่มต้น
+          fillOpacity: 0.5,       // ความโปร่งใส
+        });
+
+        layer.on('mouseover', function (e) {
+          // เมาส์ Hover บนพื้นที่ GeoJSON
+          var properties = e.target.feature.properties;
+          var popupContent = "ตำบล: " + properties.TB_NAME + "<br>" +
+            "อำเภอ: " + properties.AMP_NAME + "<br>" +
+            "จังหวัด: " + properties.PRV_NAME + "<br>" +
+            "ขนาดพื้นที่: " + properties.AREA_SQKM + " sq.km";
+
+          layer.bindPopup(popupContent).openPopup();
+
+          // เปลี่ยนสีเมื่อ Hover
+          layer.setStyle({
+            fillColor: 'blue', // สีที่คุณต้องการเมื่อ Hover
+            fillOpacity: 0.7,   // ความโปร่งใสของสี
+          });
+        });
+
+        layer.on('mouseout', function () {
+          // เมาส์ออกจากพื้นที่ GeoJSON
+          layer.closePopup();
+
+          // กลับไปสีเริ่มต้นและความโปร่งใส
+          layer.setStyle({
+            fillColor: 'lightblue', // สีเริ่มต้น
+            fillOpacity: 0.5,       // ความโปร่งใส
+          });
+        });
+      }
+    }).addTo(map);
+
+
+  </script>
+
+
+  <!-- Include Chart.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0"></script>
+
+  <script>
+    // สร้างข้อมูลตัวอย่างสำหรับ Multi Axis Line Chart
+    var data = {
+      labels: ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย."],
+      datasets: [
+        {
+          label: "อุณหภูมิ (°C)",
+          borderColor: "rgb(255, 99, 132)",
+          backgroundColor: "rgba(255, 99, 132, 0.2)",
+          yAxisID: "y1",
+          data: [10, 12, 15, 18, 22, 25],
+        },
+        {
+          label: "ความชื้น (%)",
+          borderColor: "rgb(75, 192, 192)",
+          backgroundColor: "rgba(75, 192, 192, 0.2)",
+          yAxisID: "y2",
+          data: [60, 55, 50, 45, 40, 35],
+        },
+      ],
+    };
+
+    // กำหนดการตั้งค่าของกราฟ
+    var config = {
+      type: "line",
+      data: data,
+      options: {
+        scales: {
+          y1: {
+            type: "linear",
+            position: "left",
+          },
+          y2: {
+            type: "linear",
+            position: "right",
+          },
+        },
+      },
+    };
+
+    // ดึง canvas element และสร้างกราฟ
+    var ctx = document.getElementById("multiAxisLineChart").getContext("2d");
+    var myChart = new Chart(ctx, config);
+
+
+    // สร้างข้อมูลตัวอย่างสำหรับ Bar Chart
+    var barChartData = {
+      labels: ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย."],
+      datasets: [
+        {
+          label: "ปริมาณน้ำฝน (มม.)",
+          backgroundColor: "rgb(54, 162, 235)",
+          borderColor: "rgb(54, 162, 235)",
+          data: [30, 40, 20, 10, 50, 45],
+        },
+      ],
+    };
+
+    // กำหนดการตั้งค่าของ Bar Chart
+    var barChartConfig = {
+      type: "bar",
+      data: barChartData,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    };
+
+    // ดึง canvas element และสร้าง Bar Chart
+    var barCtx = document.getElementById("barChart").getContext("2d");
+    var barChart = new Chart(barCtx, barChartConfig);
+  </script>
+
+</body>
+
+</html>
