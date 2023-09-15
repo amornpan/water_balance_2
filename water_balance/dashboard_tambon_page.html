@@ -30,7 +30,9 @@
       width: 100%;
     }
   </style>
-
+  <link rel="stylesheet" href="//unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css"
+    type="text/css">
+  <script src="//unpkg.com/leaflet-gesture-handling"></script>
 
 </head>
 
@@ -261,18 +263,19 @@
     // Ensure the GeoJSON data is loaded before using it
     //var map = L.map('map').setView([13.605215264798368, 101.54519139510974], 9);
     var map = L.map('map', {
-      keyboard: false,
-      dragging: false,
-      zoomControl: false,
-      boxZoom: false,
-      doubleClickZoom: false,
-      scrollWheelZoom: false,
-      tap: false,
-      touchZoom: false,
+      // keyboard: false,
+      // dragging: false,
+      // zoomControl: false,
+      // boxZoom: false,
+      // doubleClickZoom: false,
+      // scrollWheelZoom: false,
+      // tap: false,
+      // touchZoom: false,
+      // minZoom: 9,
+      // maxZoom: 0,
       zoom: 9,
-      minZoom: 9,
-      maxZoom: 0,
       center: [13.605215264798368, 101.54519139510974],
+      gestureHandling: true
     });
 
 
