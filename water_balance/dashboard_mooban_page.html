@@ -31,9 +31,12 @@
     }
   </style>
 
+<<<<<<< HEAD
 <link rel="stylesheet" href="//unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css" type="text/css">
 <script src="//unpkg.com/leaflet-gesture-handling"></script>
 
+=======
+>>>>>>> 64bfffea08e7131f60d531be65ae1eea0281e487
 
 </head>
 
@@ -283,6 +286,7 @@
   <script>
     // Ensure the GeoJSON data is loaded before using it
     var map = L.map('map', {
+<<<<<<< HEAD
       // keyboard: false,
       // dragging: false,
       // zoomControl: false,
@@ -296,6 +300,20 @@
       zoom: 11,
       center: [13.735213113188397, 101.47385332084065],
       gestureHandling: true
+=======
+      keyboard: false,
+      dragging: false,
+      zoomControl: false,
+      boxZoom: false,
+      doubleClickZoom: false,
+      scrollWheelZoom: false,
+      tap: false,
+      touchZoom: false,
+      zoom: 11,
+      minZoom: 11,
+      maxZoom: 0,
+      center: [13.735213113188397, 101.47385332084065],
+>>>>>>> 64bfffea08e7131f60d531be65ae1eea0281e487
     });
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -318,9 +336,13 @@
         layer.on('mouseover', function (e) {
           // เมาส์ Hover บนพื้นที่ GeoJSON
           var properties = e.target.feature.properties;
+<<<<<<< HEAD
           var popupContent = "รหัส: " + properties.ID + "<br>" +
           "หมู่บ้าน: " + properties.MOO_NAME + "<br>" +
           "ตำบล: " + properties.TAM_NAME + "<br>" +
+=======
+          var popupContent = "ตำบล: " + properties.TAM_NAME + "<br>" +
+>>>>>>> 64bfffea08e7131f60d531be65ae1eea0281e487
             "อำเภอ: " + properties.AMPHOE_T + "<br>" +
             "จังหวัด: " + properties.PROV_NAM_T + "<br>" +
             "ขนาดพื้นที่: " + properties.AREA + " sq.km";
