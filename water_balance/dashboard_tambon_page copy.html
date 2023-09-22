@@ -284,62 +284,45 @@
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
+    var polygon = L.geoJSON(tambon).addTo(map);
 
     var geojsonLayer = L.geoJSON(tambon, {
-      style: function (feature) {
-        var accumulatedRain = feature.properties.Accumulated_Rain;
-        return {
-          fillColor: getColor(accumulatedRain),
-          weight: 1,
-          opacity: 1,
-          color: 'white',
-          fillOpacity: 0.7
-        };
-      },
       onEachFeature: function (feature, layer) {
+        // กำหนดสีเริ่มต้นให้เป็นสีฟ้าอ่อนและความโปร่งใสเป็น 0.5
+        layer.setStyle({
+          fillColor: 'lightblue', // สีเริ่มต้น
+          fillOpacity: 0.5,       // ความโปร่งใส
+        });
+
         layer.on('mouseover', function (e) {
+          // เมาส์ Hover บนพื้นที่ GeoJSON
           var properties = e.target.feature.properties;
-          var accumulatedRain = properties.Accumulated_Rain;
-
-          // Change the polygon's color when hovering over
-          layer.setStyle({
-            fillColor: 'red', // You can change this color to your preference
-            fillOpacity: 0.7
-          });
-
-          // Create a popup to display the Accumulated_Rain value
           var popupContent = "ตำบล: " + properties.TB_NAME + "<br>" +
             "อำเภอ: " + properties.AMP_NAME + "<br>" +
             "จังหวัด: " + properties.PRV_NAME + "<br>" +
-            "ขนาดพื้นที่: " + properties.AREA_SQKM + " sq.km <br>" +
-            "ปริมาณน้ำฝน: " + accumulatedRain + " mm";
+            "ขนาดพื้นที่: " + properties.AREA_SQKM + " sq.km";
+
           layer.bindPopup(popupContent).openPopup();
+
+          // เปลี่ยนสีเมื่อ Hover
+          layer.setStyle({
+            fillColor: 'blue', // สีที่คุณต้องการเมื่อ Hover
+            fillOpacity: 0.7,   // ความโปร่งใสของสี
+          });
         });
 
         layer.on('mouseout', function () {
-          // Revert the polygon's color when mouseout
-          var accumulatedRain = feature.properties.Accumulated_Rain;
-          layer.setStyle({
-            fillColor: getColor(accumulatedRain),
-            fillOpacity: 0.7
-          });
-
-          // Close the popup
+          // เมาส์ออกจากพื้นที่ GeoJSON
           layer.closePopup();
+
+          // กลับไปสีเริ่มต้นและความโปร่งใส
+          layer.setStyle({
+            fillColor: 'lightblue', // สีเริ่มต้น
+            fillOpacity: 0.5,       // ความโปร่งใส
+          });
         });
       }
     }).addTo(map);
-
-    // Define a color scale function
-    function getColor(accumulatedRain) {
-      return accumulatedRain >= 100 ? '#800026' :
-        accumulatedRain >= 50 ? '#BD0026' :
-          accumulatedRain >= 25 ? '#E31A1C' :
-            accumulatedRain >= 10 ? '#FC4E2A' :
-              accumulatedRain >= 5 ? '#FD8D3C' :
-                accumulatedRain >= 2 ? '#FEB24C' :
-                  '#FFEDA0';
-    }
 
 
   </script>
