@@ -1,6 +1,9 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS  # Import the CORS class
 from onemap_rain import OneMapRainAPI  # Import the OneMapRainAPI class
+import pandas as pd
+from pymongo import MongoClient
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for your Flask app
@@ -30,6 +33,54 @@ def get_rain_data():
     geojson_data = api_instance.process_rain_data(start_date, end_date)
     return geojson_data
     #return jsonify(geojson_data)
+
+# -----------------------------------------------------------------------------------------------------------
+
+    # Define a function to calculate the average sum of columns
+def calculate_average_sum_of_columns():
+    # Connect to your MongoDB instance
+    client = MongoClient("mongodb://root:pass12345@113.53.253.56:27017/")
+    db = client.water_balance_db
+
+    # Specify the collection name
+    collection_name = "precip_onemap_khs_43MB"
+
+    # Fetch the data from the MongoDB collection
+    cursor = db[collection_name].find({})
+
+    # Convert the cursor to a list of dictionaries
+    data = list(cursor)
+
+    # Create a pandas DataFrame from the data
+    df = pd.DataFrame(data)
+
+    # Find the latest year in the dataset
+    latest_year = df['YEAR'].max()
+
+    # Calculate the date 6 months ago from today
+    six_months_ago = datetime.now() - timedelta(days=30 * 6)
+
+    # Use boolean indexing to select rows with the latest year and last 6 months
+    selected_df = df[(df['YEAR'] == latest_year) & (df['MONTH'] >= six_months_ago.month)]
+
+    # Select columns to sum (exclude 'YEAR', 'MONTH', 'DAY', and '_id')
+    columns_to_sum = [col for col in selected_df.columns if col not in ['YEAR', 'MONTH', 'DAY', '_id']]
+
+    # Calculate the sum for each column
+    column_sums = selected_df[columns_to_sum].sum()
+
+    # Calculate the average sum of columns
+    average_sum_of_columns = column_sums.mean()
+
+    return average_sum_of_columns
+
+@app.route('/onemap_avg_rain_lasted_6_months', methods=['GET'])
+def get_onemap_avg_rain_lasted_6_months():
+    average_sum = calculate_average_sum_of_columns()
+    return jsonify({'average_sum_of_columns': average_sum})
+
+
+# -----------------------------------------------------------------------------------------------------------
 
 @app.route('/get_geojson_data', methods=['GET'])
 def get_geojson_data():

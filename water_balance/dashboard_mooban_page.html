@@ -7,6 +7,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
+  <!-- Include jQuery via CDN -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <title>สมดุลน้ำ</title>
   <!-- นำเข้าฟอนต์ Prompt ด้วย <link> แท็กในส่วนหัว -->
@@ -98,27 +100,27 @@
         <div class="card text-white bg-primary">
           <h5 class="card-header"><i class="fa-solid fa-cloud-rain"></i> แผนที่ฝน</h5>
           <div class="card-body">
+            <h5 class="card-title">ปริมาณน้ำฝนเฉลี่ยย้อนหลัง 6 เดือน</h5>
+            <h5 class="card-text" id="api-value">Loading...</h5>
+            <p class="card-text text-success">2.5% increase since last month</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+        <div class="card text-white bg-info">
+          <h5 class="card-header">
+            <i class="fas fa-cloud-sun-rain text-white"></i> สภาพอากาศ
+          </h5>
+          <div class="card-body">
             <h5 class="card-title">64k</h5>
             <p class="card-text">Feb 1 - Apr 1, United States</p>
             <p class="card-text text-success">2.5% increase since last month</p>
           </div>
         </div>
       </div>
-      
-      <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
-        <div class="card text-white bg-info">
-            <h5 class="card-header">
-                <i class="fas fa-cloud-sun-rain text-white"></i> สภาพอากาศ
-            </h5>
-            <div class="card-body">
-                <h5 class="card-title">64k</h5>
-                <p class="card-text">Feb 1 - Apr 1, United States</p>
-                <p class="card-text text-success">2.5% increase since last month</p>
-            </div>
-        </div>
-    </div>
-    
-  
+
+
       <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
         <div class="card text-white bg-warning">
           <h5 class="card-header"><i class="fa-solid fa-water"></i> ความต้องการน้ำ</h5>
@@ -148,295 +150,311 @@
     </div>
   </div> -->
 
-  <div class="row mx-2">
-    <div class="col-12 col-xl-4">
-      <div class="card">
-        <h5 class="card-header">อุณหภูมิ ความชื้น 6 เดือนล่าสุด</h5>
-        <div class="card-body">
-          <canvas id="multiAxisLineChart"></canvas>
-        </div>
-      </div>
-      <div class="card my-4">
-        <h5 class="card-header">ปริมาณน้ำฝน 6 เดือนล่าสุด</h5>
-        <div class="card-body">
-          <canvas id="barChart"></canvas>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-xl-8 mb-4 mb-lg-0">
-      <div class="card">
-        <h5 class="card-header">ระบบสมดุลน้ำ: พื้นที่ 43 หมู่บ้าน</h5>
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Order</th>
-                  <th scope="col">Product</th>
-                  <th scope="col">Customer</th>
-                  <th scope="col">Total</th>
-                  <th scope="col">Date</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">17371705</th>
-                  <td>Volt Premium Bootstrap 5 Dashboard</td>
-                  <td>johndoe@gmail.com</td>
-                  <td>€61.11</td>
-                  <td>Aug 31 2020</td>
-                  <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
-                </tr>
-               
-              
-                <tr>
-                  <th scope="row">17370540</th>
-                  <td>Pixel Pro Premium Bootstrap UI Kit</td>
-                  <td>jacob.monroe@company.com</td>
-                  <td>$153.11</td>
-                  <td>Aug 28 2020</td>
-                  <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
-                </tr>
-                <tr>
-                  <th scope="row">17371705</th>
-                  <td>Volt Premium Bootstrap 5 Dashboard</td>
-                  <td>johndoe@gmail.com</td>
-                  <td>€61.11</td>
-                  <td>Aug 31 2020</td>
-                  <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
-                </tr>
-                <tr>
-                  <th scope="row">17370540</th>
-                  <td>Pixel Pro Premium Bootstrap UI Kit</td>
-                  <td>jacob.monroe@company.com</td>
-                  <td>$153.11</td>
-                  <td>Aug 28 2020</td>
-                  <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
-                </tr>
-                <tr>
-                  <th scope="row">17371705</th>
-                  <td>Volt Premium Bootstrap 5 Dashboard</td>
-                  <td>johndoe@gmail.com</td>
-                  <td>€61.11</td>
-                  <td>Aug 31 2020</td>
-                  <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
-                </tr>
-                <tr>
-                  <th scope="row">17370540</th>
-                  <td>Pixel Pro Premium Bootstrap UI Kit</td>
-                  <td>jacob.monroe@company.com</td>
-                  <td>$153.11</td>
-                  <td>Aug 28 2020</td>
-                  <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
-                </tr>
-                <tr>
-                  <th scope="row">17370540</th>
-                  <td>Pixel Pro Premium Bootstrap UI Kit</td>
-                  <td>jacob.monroe@company.com</td>
-                  <td>$153.11</td>
-                  <td>Aug 28 2020</td>
-                  <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
-                </tr>
-                <tr>
-                  <th scope="row">17370540</th>
-                  <td>Pixel Pro Premium Bootstrap UI Kit</td>
-                  <td>jacob.monroe@company.com</td>
-                  <td>$153.11</td>
-                  <td>Aug 28 2020</td>
-                  <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
-                </tr>
-                <tr>
-                  <th scope="row">17371705</th>
-                  <td>Volt Premium Bootstrap 5 Dashboard</td>
-                  <td>johndoe@gmail.com</td>
-                  <td>€61.11</td>
-                  <td>Aug 31 2020</td>
-                  <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
-                </tr>
-              </tbody>
-            </table>
+    <div class="row mx-2">
+      <div class="col-12 col-xl-4">
+        <div class="card">
+          <h5 class="card-header">อุณหภูมิ ความชื้น 6 เดือนล่าสุด</h5>
+          <div class="card-body">
+            <canvas id="multiAxisLineChart"></canvas>
           </div>
-          <a href="#" class="btn btn-block btn-light">View all</a>
+        </div>
+        <div class="card my-4">
+          <h5 class="card-header">ปริมาณน้ำฝน 6 เดือนล่าสุด</h5>
+          <div class="card-body">
+            <canvas id="barChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-xl-8 mb-4 mb-lg-0">
+        <div class="card">
+          <h5 class="card-header">ระบบสมดุลน้ำ: พื้นที่ 43 หมู่บ้าน</h5>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Order</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Date</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">17371705</th>
+                    <td>Volt Premium Bootstrap 5 Dashboard</td>
+                    <td>johndoe@gmail.com</td>
+                    <td>€61.11</td>
+                    <td>Aug 31 2020</td>
+                    <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
+                  </tr>
+
+
+                  <tr>
+                    <th scope="row">17370540</th>
+                    <td>Pixel Pro Premium Bootstrap UI Kit</td>
+                    <td>jacob.monroe@company.com</td>
+                    <td>$153.11</td>
+                    <td>Aug 28 2020</td>
+                    <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">17371705</th>
+                    <td>Volt Premium Bootstrap 5 Dashboard</td>
+                    <td>johndoe@gmail.com</td>
+                    <td>€61.11</td>
+                    <td>Aug 31 2020</td>
+                    <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">17370540</th>
+                    <td>Pixel Pro Premium Bootstrap UI Kit</td>
+                    <td>jacob.monroe@company.com</td>
+                    <td>$153.11</td>
+                    <td>Aug 28 2020</td>
+                    <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">17371705</th>
+                    <td>Volt Premium Bootstrap 5 Dashboard</td>
+                    <td>johndoe@gmail.com</td>
+                    <td>€61.11</td>
+                    <td>Aug 31 2020</td>
+                    <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">17370540</th>
+                    <td>Pixel Pro Premium Bootstrap UI Kit</td>
+                    <td>jacob.monroe@company.com</td>
+                    <td>$153.11</td>
+                    <td>Aug 28 2020</td>
+                    <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">17370540</th>
+                    <td>Pixel Pro Premium Bootstrap UI Kit</td>
+                    <td>jacob.monroe@company.com</td>
+                    <td>$153.11</td>
+                    <td>Aug 28 2020</td>
+                    <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">17370540</th>
+                    <td>Pixel Pro Premium Bootstrap UI Kit</td>
+                    <td>jacob.monroe@company.com</td>
+                    <td>$153.11</td>
+                    <td>Aug 28 2020</td>
+                    <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">17371705</th>
+                    <td>Volt Premium Bootstrap 5 Dashboard</td>
+                    <td>johndoe@gmail.com</td>
+                    <td>€61.11</td>
+                    <td>Aug 31 2020</td>
+                    <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <a href="#" class="btn btn-block btn-light">View all</a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- footer -->
-  <div class="container">
-
+    <!-- footer -->
     <div class="container">
-      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-        <div class="col-md-4 d-flex align-items-center">
-          <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
-            <svg class="bi" width="30" height="24">
-              <use xlink:href="#bootstrap"></use>
-            </svg>
-          </a>
-          <span class="mb-3 mb-md-0 text-body-secondary">© 2023 Water Balance, Inc</span>
-        </div>
 
-        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-          <li class="ms-3"><a class="text-body-secondary" href="#"><i class="fa-brands fa-square-x-twitter"></i>
-          <li class="ms-3"><a class="text-body-secondary" href="#"><i class="fa-brands fa-facebook"></i>
-          <li class="ms-3"><a class="text-body-secondary" href="#"><i class="fa-brands fa-square-instagram"></i>
-        </ul>
-      </footer>
+      <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+          <div class="col-md-4 d-flex align-items-center">
+            <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+              <svg class="bi" width="30" height="24">
+                <use xlink:href="#bootstrap"></use>
+              </svg>
+            </a>
+            <span class="mb-3 mb-md-0 text-body-secondary">© 2023 Water Balance, Inc</span>
+          </div>
+
+          <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+            <li class="ms-3"><a class="text-body-secondary" href="#"><i class="fa-brands fa-square-x-twitter"></i>
+            <li class="ms-3"><a class="text-body-secondary" href="#"><i class="fa-brands fa-facebook"></i>
+            <li class="ms-3"><a class="text-body-secondary" href="#"><i class="fa-brands fa-square-instagram"></i>
+          </ul>
+        </footer>
+      </div>
+
     </div>
-
-  </div>
-  <!-- /footer -->
+    <!-- /footer -->
 
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // Ensure the GeoJSON data is loaded before using it
-    var map = L.map('map', {
-      // keyboard: false,
-      // dragging: false,
-      // zoomControl: false,
-      // boxZoom: false,
-      // doubleClickZoom: false,
-      // scrollWheelZoom: false,
-      // tap: false,
-      // touchZoom: false,
-      // minZoom: 11,
-      // maxZoom: 0,
-      zoom: 11,
-      center: [13.735213113188397, 101.47385332084065],
-      gestureHandling: true,
-    });
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Ensure the GeoJSON data is loaded before using it
+      var map = L.map('map', {
+        // keyboard: false,
+        // dragging: false,
+        // zoomControl: false,
+        // boxZoom: false,
+        // doubleClickZoom: false,
+        // scrollWheelZoom: false,
+        // tap: false,
+        // touchZoom: false,
+        // minZoom: 11,
+        // maxZoom: 0,
+        zoom: 11,
+        center: [13.735213113188397, 101.47385332084065],
+        gestureHandling: true,
+      });
 
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
 
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map);
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(map);
 
-    //var polygon = L.geoJSON(mooban).addTo(map);
+      //var polygon = L.geoJSON(mooban).addTo(map);
 
 
-    var geojsonLayer = L.geoJSON(mooban, {
-      onEachFeature: function (feature, layer) {
-        // กำหนดสีเริ่มต้นให้เป็นสีฟ้าอ่อนและความโปร่งใสเป็น 0.5
-        layer.setStyle({
-          fillColor: 'lightblue', // สีเริ่มต้น
-          fillOpacity: 0.5,       // ความโปร่งใส
-        });
-
-        layer.on('mouseover', function (e) {
-          // เมาส์ Hover บนพื้นที่ GeoJSON
-          var properties = e.target.feature.properties;
-          var popupContent = "รหัส: " + properties.ID + "<br>" +
-            "หมู่บ้าน: " + properties.MOO_NAME + "<br>" +
-            "ตำบล: " + properties.TAM_NAME + "<br>" +
-            "อำเภอ: " + properties.AMPHOE_T + "<br>" +
-            "จังหวัด: " + properties.PROV_NAM_T + "<br>" +
-            "ขนาดพื้นที่: " + properties.AREA + " sq.km";
-
-          layer.bindPopup(popupContent).openPopup();
-
-          // เปลี่ยนสีเมื่อ Hover
-          layer.setStyle({
-            fillColor: 'blue', // สีที่คุณต้องการเมื่อ Hover
-            fillOpacity: 0.7,   // ความโปร่งใสของสี
-          });
-        });
-
-        layer.on('mouseout', function () {
-          // เมาส์ออกจากพื้นที่ GeoJSON
-          layer.closePopup();
-
-          // กลับไปสีเริ่มต้นและความโปร่งใส
+      var geojsonLayer = L.geoJSON(mooban, {
+        onEachFeature: function (feature, layer) {
+          // กำหนดสีเริ่มต้นให้เป็นสีฟ้าอ่อนและความโปร่งใสเป็น 0.5
           layer.setStyle({
             fillColor: 'lightblue', // สีเริ่มต้น
             fillOpacity: 0.5,       // ความโปร่งใส
           });
-        });
-      }
-    }).addTo(map);
-  </script>
+
+          layer.on('mouseover', function (e) {
+            // เมาส์ Hover บนพื้นที่ GeoJSON
+            var properties = e.target.feature.properties;
+            var popupContent = "รหัส: " + properties.ID + "<br>" +
+              "หมู่บ้าน: " + properties.MOO_NAME + "<br>" +
+              "ตำบล: " + properties.TAM_NAME + "<br>" +
+              "อำเภอ: " + properties.AMPHOE_T + "<br>" +
+              "จังหวัด: " + properties.PROV_NAM_T + "<br>" +
+              "ขนาดพื้นที่: " + properties.AREA + " sq.km";
+
+            layer.bindPopup(popupContent).openPopup();
+
+            // เปลี่ยนสีเมื่อ Hover
+            layer.setStyle({
+              fillColor: 'blue', // สีที่คุณต้องการเมื่อ Hover
+              fillOpacity: 0.7,   // ความโปร่งใสของสี
+            });
+          });
+
+          layer.on('mouseout', function () {
+            // เมาส์ออกจากพื้นที่ GeoJSON
+            layer.closePopup();
+
+            // กลับไปสีเริ่มต้นและความโปร่งใส
+            layer.setStyle({
+              fillColor: 'lightblue', // สีเริ่มต้น
+              fillOpacity: 0.5,       // ความโปร่งใส
+            });
+          });
+        }
+      }).addTo(map);
+    </script>
 
 
-  <!-- Include Chart.js library -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0"></script>
+    <!-- Include Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0"></script>
 
-  <script>
-    // สร้างข้อมูลตัวอย่างสำหรับ Multi Axis Line Chart
-    var data = {
-      labels: ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย."],
-      datasets: [
-        {
-          label: "อุณหภูมิ (°C)",
-          borderColor: "rgb(255, 99, 132)",
-          backgroundColor: "rgba(255, 99, 132, 0.2)",
-          yAxisID: "y1",
-          data: [10, 12, 15, 18, 22, 25],
-        },
-        {
-          label: "ความชื้น (%)",
-          borderColor: "rgb(75, 192, 192)",
-          backgroundColor: "rgba(75, 192, 192, 0.2)",
-          yAxisID: "y2",
-          data: [60, 55, 50, 45, 40, 35],
-        },
-      ],
-    };
-
-    // กำหนดการตั้งค่าของกราฟ
-    var config = {
-      type: "line",
-      data: data,
-      options: {
-        scales: {
-          y1: {
-            type: "linear",
-            position: "left",
+    <script>
+      // สร้างข้อมูลตัวอย่างสำหรับ Multi Axis Line Chart
+      var data = {
+        labels: ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย."],
+        datasets: [
+          {
+            label: "อุณหภูมิ (°C)",
+            borderColor: "rgb(255, 99, 132)",
+            backgroundColor: "rgba(255, 99, 132, 0.2)",
+            yAxisID: "y1",
+            data: [10, 12, 15, 18, 22, 25],
           },
-          y2: {
-            type: "linear",
-            position: "right",
+          {
+            label: "ความชื้น (%)",
+            borderColor: "rgb(75, 192, 192)",
+            backgroundColor: "rgba(75, 192, 192, 0.2)",
+            yAxisID: "y2",
+            data: [60, 55, 50, 45, 40, 35],
+          },
+        ],
+      };
+
+      // กำหนดการตั้งค่าของกราฟ
+      var config = {
+        type: "line",
+        data: data,
+        options: {
+          scales: {
+            y1: {
+              type: "linear",
+              position: "left",
+            },
+            y2: {
+              type: "linear",
+              position: "right",
+            },
           },
         },
-      },
-    };
+      };
 
-    // ดึง canvas element และสร้างกราฟ
-    var ctx = document.getElementById("multiAxisLineChart").getContext("2d");
-    var myChart = new Chart(ctx, config);
+      // ดึง canvas element และสร้างกราฟ
+      var ctx = document.getElementById("multiAxisLineChart").getContext("2d");
+      var myChart = new Chart(ctx, config);
 
 
-    // สร้างข้อมูลตัวอย่างสำหรับ Bar Chart
-    var barChartData = {
-      labels: ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย."],
-      datasets: [
-        {
-          label: "ปริมาณน้ำฝน (มม.)",
-          backgroundColor: "rgb(54, 162, 235)",
-          borderColor: "rgb(54, 162, 235)",
-          data: [30, 40, 20, 10, 50, 45],
-        },
-      ],
-    };
+      // สร้างข้อมูลตัวอย่างสำหรับ Bar Chart
+      var barChartData = {
+        labels: ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย."],
+        datasets: [
+          {
+            label: "ปริมาณน้ำฝน (มม.)",
+            backgroundColor: "rgb(54, 162, 235)",
+            borderColor: "rgb(54, 162, 235)",
+            data: [30, 40, 20, 10, 50, 45],
+          },
+        ],
+      };
 
-    // กำหนดการตั้งค่าของ Bar Chart
-    var barChartConfig = {
-      type: "bar",
-      data: barChartData,
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
+      // กำหนดการตั้งค่าของ Bar Chart
+      var barChartConfig = {
+        type: "bar",
+        data: barChartData,
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
           },
         },
-      },
-    };
+      };
 
-    // ดึง canvas element และสร้าง Bar Chart
-    var barCtx = document.getElementById("barChart").getContext("2d");
-    var barChart = new Chart(barCtx, barChartConfig);
-  </script>
+      // ดึง canvas element และสร้าง Bar Chart
+      var barCtx = document.getElementById("barChart").getContext("2d");
+      var barChart = new Chart(barCtx, barChartConfig);
+    </script>
+
+<script>
+  // Fetch data from the API and update the HTML content using jQuery
+  $(document).ready(function() {
+    $.get('http://113.53.253.56:5050/onemap_avg_rain_lasted_6_months', function(data) {
+      // Format the API value with two decimal places
+      var formattedValue = data.average_sum_of_columns.toFixed(2);
+      
+      // Update the content of the 'api-value' element with the formatted value
+      $('#api-value').text(formattedValue + ' มม.');
+    }).fail(function() {
+      console.error('Error fetching data from the API');
+      // Handle errors if needed
+    });
+  });
+</script>
 
 </body>
 
