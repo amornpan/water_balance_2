@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Leaflet Map with API Data (jQuery)</title>
+    <!-- Include Leaflet.js library via CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <!-- Include jQuery via CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include Bootstrap 5 CSS and JS via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        /* Style the map container */
+        #map {
+            height: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Select Start and End Dates</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="startDate">Start Date:</label>
+                    <input type="text" class="form-control" id="startDate" placeholder="YYYY-MM-DD">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="endDate">End Date:</label>
+                    <input type="text" class="form-control" id="endDate" placeholder="YYYY-MM-DD">
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary" id="fetchData">Fetch Data</button>
+        <button class="btn btn-secondary" id="clearMap">Clear Map</button>
+        <div id="result"></div>
+    </div>
+
+    <!-- Create a map container -->
+    <div id="map" style="height: 500px;"></div>
+
+    <script>
+        var map;
+
+        $(document).ready(function () {
+            // Initialize the map and set its initial view
+            map = L.map('map', {
+                zoom: 9,
+                center: [13.605215264798368, 101.54519139510974],
+                gestureHandling: true
+            });
+
+            // Add a tile layer to the map (you can use any compatible tile layer)
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            // Define a function to set fill color based on accumulated rain value
+            function getColor(accumulatedRain) {
+                return accumulatedRain >= 100 ? '#800026' :
+                    accumulatedRain >= 50 ? '#BD0026' :
+                        accumulatedRain >= 25 ? '#E31A1C' :
+                            accumulatedRain >= 10 ? '#FC4E2A' :
+                                accumulatedRain >= 5 ? '#FD8D3C' :
+                                    accumulatedRain >= 2 ? '#FEB24C' :
+                                        '#FFEDA0';
+            }
+
+            // Function to clear map color and popups
+            function clearMap() {
+                map.eachLayer(function (layer) {
+                    if (layer instanceof L.GeoJSON) {
+                        map.removeLayer(layer);
+                    }
+                });
+            }
+
+            // Fetch Data Button Click Handler
+            $("#fetchData").click(function () {
+                // Clear the map before adding new data
+                clearMap();
+
+                // Get selected dates
+                var startDate = $('#startDate').val();
+                var endDate = $('#endDate').val();
+
+                // Define the API URL with parameters
+                var apiUrl = "http://113.53.253.56:5050/get_rain_data?" +
+                    "start_year=" + startDate.split('-')[0] +
+                    "&start_month=" + startDate.split('-')[1] +
+                    "&start_day=" + startDate.split('-')[2] +
+                    "&end_year=" + endDate.split('-')[0] +
+                    "&end_month=" + endDate.split('-')[1] +
+                    "&end_day=" + endDate.split('-')[2];
+
+                // Fetch GeoJSON data from the API using jQuery
+                $.getJSON(apiUrl, function (geojsonData) {
+                    // Create a GeoJSON layer and add it to the map
+                    L.geoJSON(geojsonData, {
+                        style: function (feature) {
+                            // Customize the polygon style based on accumulated rain
+                            var accumulatedRain = feature.properties.Accumulated_Rain;
+                            return {
+                                fillColor: getColor(accumulatedRain),
+                                color: ' darkgray',
+                                weight: 1,
+                                opacity: 1,
+                                fillOpacity: 0.5
+                            };
+                        },
+                        onEachFeature: function (feature, layer) {
+                            // Customize the popup content for each feature
+                            var popupContent = "<p><strong>Accumulated Rain:</strong> " + feature.properties.Accumulated_Rain + " mm</p>";
+                            layer.bindPopup(popupContent);
+                        }
+                    }).addTo(map);
+                })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+                        console.error('Fetch error:', textStatus, errorThrown);
+                        alert('Error: ' + textStatus);
+                    });
+            });
+
+            // Clear Map Button Click Handler
+            $("#clearMap").click(function () {
+                // Clear the map
+                clearMap();
+            });
+        });
+    </script>
+</body>
+
+</html>
