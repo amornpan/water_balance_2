@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rain Data Visualization</title>
+
+    <!-- Include Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <!-- Include Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+    <!-- Include Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h1>Rain Data Visualization</h1>
+
+        <!-- Date input fields -->
+        <div class="input-group mb-3">
+            <span class="input-group-text">Start Date</span>
+            <input type="date" id="startDate" class="form-control">
+            <span class="input-group-text">End Date</span>
+            <input type="date" id="endDate" class="form-control">
+            <button class="btn btn-primary" id="loadData">Load Data</button>
+        </div>
+
+        <!-- Map container -->
+        <div id="map" style="height: 500px;"></div>
+    </div>
+
+    <!-- Include Bootstrap 5 JavaScript and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+    <script>
+        // Initialize the map using Leaflet
+        var map = L.map('map').setView([0, 0], 2);
+
+        // Replace with your own Tile Layer (e.g., OpenStreetMap)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Function to load rain data and display on the map
+        function loadRainData() {
+            var startDate = document.getElementById('startDate').value;
+            var endDate = document.getElementById('endDate').value;
+
+            // Construct the API URL with query parameters
+            var apiUrl = 'http://113.53.253.56:5050/get_rain_data?' +
+                'start_year=' + startDate.split('-')[0] +
+                '&start_month=' + startDate.split('-')[1] +
+                '&start_day=' + startDate.split('-')[2] +
+                '&end_year=' + endDate.split('-')[0] +
+                '&end_month=' + endDate.split('-')[1] +
+                '&end_day=' + endDate.split('-')[2];
+
+            // Fetch GeoJSON data from the Flask API
+            fetch(apiUrl)
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    // Create a Leaflet GeoJSON layer
+                    var geojsonLayer = L.geoJSON(data, {
+                        style: function (feature) {
+                            // Style based on the "Accumulated_Rain" property
+                            var accumulatedRain = feature.properties.Accumulated_Rain;
+                            return {
+                                fillColor: getColor(accumulatedRain),
+                                weight: 1,
+                                opacity: 1,
+                                color: 'white',
+                                fillOpacity: 0.7
+                            };
+                        },
+                        onEachFeature: function (feature, layer) {
+                            // Add a popup with property information
+                            layer.bindPopup("Accumulated Rain: " + feature.properties.Accumulated_Rain);
+                        }
+                    });
+
+                    // Add the GeoJSON layer to the map
+                    geojsonLayer.addTo(map);
+                })
+                .catch(function (error) {
+                    console.error('Error loading data:', error);
+                });
+        }
+
+        // Attach click event to load data button
+        document.getElementById('loadData').addEventListener('click', function () {
+            loadRainData();
+        });
+
+        // Define a function to set fill color based on accumulated rain value
+        function getColor(accumulatedRain) {
+            return accumulatedRain > 500 ? 'red' :
+                accumulatedRain > 200 ? 'orange' :
+                    accumulatedRain > 100 ? 'yellow' :
+                        accumulatedRain > 50 ? 'green' :
+                            'blue';
+        }
+    </script>
+</body>
+
+</html>
