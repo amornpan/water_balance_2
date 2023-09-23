@@ -292,7 +292,7 @@
           fillColor: getColor(accumulatedRain),
           weight: 1,
           opacity: 1,
-          color: 'darkgray',
+          color: 'white',
           fillOpacity: 0.7
         };
       },
@@ -301,11 +301,11 @@
           var properties = e.target.feature.properties;
           var accumulatedRain = properties.Accumulated_Rain;
 
-          // // Change the polygon's color when hovering over
-          // layer.setStyle({
-          //   fillColor: 'red', // You can change this color to your preference
-          //   fillOpacity: 0.7
-          // });
+          // Change the polygon's color when hovering over
+          layer.setStyle({
+            fillColor: 'red', // You can change this color to your preference
+            fillOpacity: 0.7
+          });
 
           // Create a popup to display the Accumulated_Rain value
           var popupContent = "ตำบล: " + properties.TB_NAME + "<br>" +
@@ -322,7 +322,6 @@
           layer.setStyle({
             fillColor: getColor(accumulatedRain),
             fillOpacity: 0.7
-            
           });
 
           // Close the popup
