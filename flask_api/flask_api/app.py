@@ -79,6 +79,54 @@ def get_onemap_avg_rain_lasted_6_months():
     average_sum = calculate_average_sum_of_columns()
     return jsonify({'average_sum_of_columns': average_sum})
 
+# -----------------------------------------------------------------------------------------------------------
+
+@app.route('/api/rainfall_data', methods=['GET'])
+def get_rainfall_data():
+    # Connect to your MongoDB instance
+    client = MongoClient("mongodb://root:pass12345@113.53.253.56:27017/")  # Replace with your MongoDB connection string
+    db = client.water_balance_db  # Replace with your database name
+
+    # Specify the collection name
+    collection_name = "precip_onemap_khs_43MB"
+
+    # Fetch the data from the MongoDB collection
+    cursor = db[collection_name].find({})  # Retrieve all documents in the collection
+
+    # Convert the cursor to a list of dictionaries
+    data = list(cursor)
+
+    # Create a pandas DataFrame from the data
+    df = pd.DataFrame(data)
+
+    # Find the latest year in the dataset
+    latest_year = df['YEAR'].max()
+
+    # Calculate the date 6 months ago from today
+    six_months_ago = datetime.now() - timedelta(days=30 * 6)
+
+    # Use boolean indexing to select rows with the latest year and last 6 months
+    selected_df = df[(df['YEAR'] == latest_year) & (df['MONTH'] >= six_months_ago.month)]
+
+    # Select columns to sum (exclude 'YEAR', 'MONTH', 'DAY', and '_id')
+    columns_to_sum = [col for col in selected_df.columns if col not in ['YEAR', 'MONTH', 'DAY', '_id']]
+
+    # Create a new column 'SUM_RAIN' containing the sum of selected columns for each row
+    selected_df['SUM_RAIN'] = selected_df[columns_to_sum].sum(axis=1)
+
+    # Group the data by month and calculate the sum of 'SUM_RAIN' for each month
+    monthly_sum = selected_df.groupby(['YEAR', 'MONTH'])['SUM_RAIN'].sum().reset_index()
+
+    # Create a new column 'x_axis' for plotting
+    monthly_sum['x_axis'] = monthly_sum['YEAR'].astype(str) + '-' + monthly_sum['MONTH'].astype(str)
+
+    # Prepare the JSON data for response
+    data_for_chartjs = {
+        'x_axis': monthly_sum['x_axis'].tolist(),
+        'SUM_RAIN': monthly_sum['SUM_RAIN'].tolist()
+    }
+
+    return jsonify(data_for_chartjs)
 
 # -----------------------------------------------------------------------------------------------------------
 

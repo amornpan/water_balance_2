@@ -153,9 +153,9 @@
     <div class="row mx-2">
       <div class="col-12 col-xl-4">
         <div class="card">
-          <h5 class="card-header">อุณหภูมิ ความชื้น 6 เดือนล่าสุด</h5>
+          <h5 class="card-header">ปริมาณน้ำฝนสะสม 6 เดือนล่าสุด</h5>
           <div class="card-body">
-            <canvas id="multiAxisLineChart"></canvas>
+            <canvas id="rainfallChart"></canvas>
           </div>
         </div>
         <div class="card my-4">
@@ -453,6 +453,44 @@
       console.error('Error fetching data from the API');
       // Handle errors if needed
     });
+  });
+</script>
+
+<script>
+  $(document).ready(function() {
+      // Fetch data from your Flask API
+      $.getJSON("http://113.53.253.56:5050/api/rainfall_data", function(data) {
+          var x_axis = data.x_axis;
+          var sum_rain = data.SUM_RAIN;
+
+          // Create a Chart.js chart
+          var ctx = document.getElementById('rainfallChart').getContext('2d');
+          var myChart = new Chart(ctx, {
+              type: 'bar',
+              data: {
+                  labels: x_axis,  // X-axis labels
+                  datasets: [{
+                      label: 'Sum of Rainfall (mm)',
+                      data: sum_rain,  // Y-axis data
+                      backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                      borderColor: 'rgba(75, 192, 192, 1)',
+                      borderWidth: 1
+                  }]
+              },
+              options: {
+                  scales: {
+                      y: {
+                          beginAtZero: true,
+                          ticks: {
+                              callback: function(value, index, values) {
+                                  return value.toFixed(2); // Format Y-axis values as 00.00
+                              }
+                          }
+                      }
+                  }
+              }
+          });
+      });
   });
 </script>
 
