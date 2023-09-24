@@ -167,102 +167,30 @@
       </div>
       <div class="col-12 col-xl-8 mb-4 mb-lg-0">
         <div class="card">
-          <h5 class="card-header">ระบบสมดุลน้ำ: พื้นที่ 43 หมู่บ้าน</h5>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Order</th>
-                    <th scope="col">Product</th>
-                    <th scope="col">Customer</th>
-                    <th scope="col">Total</th>
-                    <th scope="col">Date</th>
-                    <th scope="col"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">17371705</th>
-                    <td>Volt Premium Bootstrap 5 Dashboard</td>
-                    <td>johndoe@gmail.com</td>
-                    <td>€61.11</td>
-                    <td>Aug 31 2020</td>
-                    <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
-                  </tr>
-
-
-                  <tr>
-                    <th scope="row">17370540</th>
-                    <td>Pixel Pro Premium Bootstrap UI Kit</td>
-                    <td>jacob.monroe@company.com</td>
-                    <td>$153.11</td>
-                    <td>Aug 28 2020</td>
-                    <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">17371705</th>
-                    <td>Volt Premium Bootstrap 5 Dashboard</td>
-                    <td>johndoe@gmail.com</td>
-                    <td>€61.11</td>
-                    <td>Aug 31 2020</td>
-                    <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">17370540</th>
-                    <td>Pixel Pro Premium Bootstrap UI Kit</td>
-                    <td>jacob.monroe@company.com</td>
-                    <td>$153.11</td>
-                    <td>Aug 28 2020</td>
-                    <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">17371705</th>
-                    <td>Volt Premium Bootstrap 5 Dashboard</td>
-                    <td>johndoe@gmail.com</td>
-                    <td>€61.11</td>
-                    <td>Aug 31 2020</td>
-                    <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">17370540</th>
-                    <td>Pixel Pro Premium Bootstrap UI Kit</td>
-                    <td>jacob.monroe@company.com</td>
-                    <td>$153.11</td>
-                    <td>Aug 28 2020</td>
-                    <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">17370540</th>
-                    <td>Pixel Pro Premium Bootstrap UI Kit</td>
-                    <td>jacob.monroe@company.com</td>
-                    <td>$153.11</td>
-                    <td>Aug 28 2020</td>
-                    <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">17370540</th>
-                    <td>Pixel Pro Premium Bootstrap UI Kit</td>
-                    <td>jacob.monroe@company.com</td>
-                    <td>$153.11</td>
-                    <td>Aug 28 2020</td>
-                    <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">17371705</th>
-                    <td>Volt Premium Bootstrap 5 Dashboard</td>
-                    <td>johndoe@gmail.com</td>
-                    <td>€61.11</td>
-                    <td>Aug 31 2020</td>
-                    <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
-                  </tr>
-                </tbody>
-              </table>
+            <h5 class="card-header">ระบบสมดุลน้ำ: พื้นที่ 43 หมู่บ้าน</h5>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table" id="data-table">
+                        <thead>
+                            <tr>
+                                <th>รหัสหมู่บ้าน</th>
+                                <th>หมู่บ้าน</th>
+                                <th>ตำบล</th>
+                                <th>อำเภอ</th>
+                                <th>จังหวัด</th>
+                                <th>ขนาดพื้นที่(มม)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data will be inserted here using JavaScript -->
+                        </tbody>
+                    </table>
+                    <div id="pagination"></div>
+                </div>
+               
             </div>
-            <a href="#" class="btn btn-block btn-light">View all</a>
-          </div>
         </div>
-      </div>
+    </div>
     </div>
 
     <!-- footer -->
@@ -440,59 +368,155 @@
       var barChart = new Chart(barCtx, barChartConfig);
     </script>
 
-<script>
-  // Fetch data from the API and update the HTML content using jQuery
-  $(document).ready(function() {
-    $.get('http://113.53.253.56:5050/onemap_avg_rain_lasted_6_months', function(data) {
-      // Format the API value with two decimal places
-      var formattedValue = data.average_sum_of_columns.toFixed(2);
-      
-      // Update the content of the 'api-value' element with the formatted value
-      $('#api-value').text(formattedValue + ' มม.');
-    }).fail(function() {
-      console.error('Error fetching data from the API');
-      // Handle errors if needed
-    });
-  });
-</script>
+    <script>
+      // Fetch data from the API and update the HTML content using jQuery
+      $(document).ready(function () {
+        $.get('http://113.53.253.56:5050/onemap_avg_rain_lasted_6_months', function (data) {
+          // Format the API value with two decimal places
+          var formattedValue = data.average_sum_of_columns.toFixed(2);
 
-<script>
-  $(document).ready(function() {
-      // Fetch data from your Flask API
-      $.getJSON("http://113.53.253.56:5050/api/rainfall_data", function(data) {
+          // Update the content of the 'api-value' element with the formatted value
+          $('#api-value').text(formattedValue + ' มม.');
+        }).fail(function () {
+          console.error('Error fetching data from the API');
+          // Handle errors if needed
+        });
+      });
+    </script>
+
+    <script>
+      $(document).ready(function () {
+        // Fetch data from your Flask API
+        $.getJSON("http://113.53.253.56:5050/api/rainfall_data", function (data) {
           var x_axis = data.x_axis;
           var sum_rain = data.SUM_RAIN;
 
           // Create a Chart.js chart
           var ctx = document.getElementById('rainfallChart').getContext('2d');
           var myChart = new Chart(ctx, {
-              type: 'bar',
-              data: {
-                  labels: x_axis,  // X-axis labels
-                  datasets: [{
-                      label: 'Sum of Rainfall (mm)',
-                      data: sum_rain,  // Y-axis data
-                      backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                      borderColor: 'rgba(75, 192, 192, 1)',
-                      borderWidth: 1
-                  }]
-              },
-              options: {
-                  scales: {
-                      y: {
-                          beginAtZero: true,
-                          ticks: {
-                              callback: function(value, index, values) {
-                                  return value.toFixed(2); // Format Y-axis values as 00.00
-                              }
-                          }
-                      }
+            type: 'bar',
+            data: {
+              labels: x_axis,  // X-axis labels
+              datasets: [{
+                label: 'Sum of Rainfall (mm)',
+                data: sum_rain,  // Y-axis data
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  ticks: {
+                    callback: function (value, index, values) {
+                      return value.toFixed(2); // Format Y-axis values as 00.00
+                    }
                   }
+                }
               }
+            }
           });
+        });
       });
+    </script>
+
+<script>
+  const rowsPerPage = 10;
+  let currentPage = 1;
+
+  // Function to populate the table with data for the current page
+  function populateTable(data, page) {
+      const dataTable = document.getElementById('data-table').getElementsByTagName('tbody')[0];
+      dataTable.innerHTML = ''; // Clear existing table rows
+
+      const startIdx = (page - 1) * rowsPerPage;
+      const endIdx = startIdx + rowsPerPage;
+
+      for (let i = startIdx; i < Math.min(endIdx, data.length); i++) {
+          const row = data[i];
+          const newRow = dataTable.insertRow();
+          newRow.insertCell(0).textContent = row.CODE_Mooban;
+          newRow.insertCell(1).textContent = row.Mooban;
+          newRow.insertCell(2).textContent = row.Tambon;
+          newRow.insertCell(3).textContent = row.Amphoe;
+          newRow.insertCell(4).textContent = row.Changwat;
+          newRow.insertCell(5).textContent = row.AREA;
+      }
+  }
+
+  // Function to render pagination controls
+  function renderPagination(data) {
+      const totalPages = Math.ceil(data.length / rowsPerPage);
+      const pagination = document.getElementById('pagination');
+      pagination.innerHTML = '';
+
+      for (let i = 1; i <= totalPages; i++) {
+          const pageLink = document.createElement('a');
+          pageLink.href = '#';
+          pageLink.textContent = i;
+
+          pageLink.addEventListener('click', () => {
+              currentPage = i;
+              populateTable(data, currentPage);
+              highlightCurrentPage();
+          });
+
+          pagination.appendChild(pageLink);
+      }
+
+      highlightCurrentPage();
+  }
+
+  // Function to highlight the current page in pagination controls
+  function highlightCurrentPage() {
+      const pageLinks = document.getElementById('pagination').getElementsByTagName('a');
+      for (let i = 0; i < pageLinks.length; i++) {
+          if (i === currentPage - 1) {
+              pageLinks[i].classList.add('active');
+          } else {
+              pageLinks[i].classList.remove('active');
+          }
+      }
+  }
+
+  // Make an AJAX request to fetch data from the API
+  document.addEventListener('DOMContentLoaded', function () {
+      fetch('http://113.53.253.56:5050/get_chart_data_table')
+          .then(response => response.json())
+          .then(data => {
+              if (Array.isArray(data)) {
+                  renderPagination(data);
+                  populateTable(data, currentPage);
+              } else {
+                  console.error('API response is not an array:', data);
+              }
+          })
+          .catch(error => {
+              console.error('Error fetching data from the API:', error);
+          });
   });
 </script>
+
+<style>
+  /* Add some basic styles for pagination */
+  #pagination {
+      margin-top: 10px;
+  }
+
+  #pagination a {
+      margin-right: 5px;
+      text-decoration: none;
+      color: #007bff;
+  }
+
+  #pagination a.active {
+      font-weight: bold;
+  }
+</style>
+
+
 
 </body>
 

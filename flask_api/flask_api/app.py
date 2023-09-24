@@ -130,6 +130,47 @@ def get_rainfall_data():
 
 # -----------------------------------------------------------------------------------------------------------
 
+@app.route('/get_chart_data_table', methods=['GET'])
+def get_chart_data_table():
+    # Connect to your MongoDB instance
+    client = MongoClient("mongodb://root:pass12345@113.53.253.56:27017/")
+    db = client.water_balance_db  # Replace with your database name
+
+    # Specify the collection name
+    collection_name = "Metadata_Mooban_43Tambon"
+
+    # Fetch the data from the MongoDB collection
+    cursor = db[collection_name].find({})  # Retrieve all documents in the collection
+
+    # Convert the cursor to a list of dictionaries
+    data = list(cursor)
+
+    # Create a pandas DataFrame from the data
+    df = pd.DataFrame(data)
+
+    # Rename the columns
+    df = df.rename(columns={"หมู่บ้าน": "Mooban", "AREA (Sq": "AREA"})
+
+    # Select the desired columns
+    selected_columns = ["CODE_Mooban", "Mooban", "Tambon", "Amphoe", "Changwat", "AREA"]
+
+    # Create a new DataFrame with only the selected columns
+    selected_df = df[selected_columns]
+
+    selected_df.loc[:, "AREA"] = selected_df["AREA"].apply(lambda x: float(x.get('m)')))
+
+    # Convert the DataFrame to a JSON object and set the content type
+    chart_data = selected_df.to_json(orient='records', force_ascii=False, default_handler=str)
+    response = app.response_class(
+        response=chart_data,
+        status=200,
+        mimetype='application/json; charset=utf-8'  # Set the charset to UTF-8
+    )
+
+    return response
+
+# -----------------------------------------------------------------------------------------------------------
+
 @app.route('/get_geojson_data', methods=['GET'])
 def get_geojson_data():
     try:

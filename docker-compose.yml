@@ -1,15 +1,61 @@
 version: '3.8'
+
 services:
   nginx:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: amornpan/nginx_service:nginx_container
     ports:
       - "7890:7890"
     volumes:
       - ./water_balance/nginx.conf:/etc/nginx/nginx.conf
       - ./water_balance:/usr/share/nginx/html
     command: ["nginx", "-g", "daemon off;"]
-    container_name: nginx_container # Change this to a desired container name
+    container_name: nginx_container
 
-# Add other services below this line as needed
+  mongodb:
+    image: amornpan/mongodb:mongo_db
+    container_name: new_mongodb
+    volumes:
+      - ./mongodb:/data/db
+    ports:
+      - 27017:27017
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo mongodb:27017/test --quiet
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  mongo-express:
+    image: amornpan/mongoexpress:mongo_express
+    container_name: new_mongo-express
+    depends_on:
+      - mongodb
+    ports:
+      - 8081:8081
+    healthcheck:
+      test: wget --quiet --tries=3 --spider http://admin:admin123@mongo-express:8081 || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  flask-api:  # Your Flask API service
+    image: amornpan/flaskapi:flask_api
+    container_name: flask_api_container
+    ports:
+      - "5050:5050"
+    volumes:
+      - ./flask_api/flask_api:/app
+    restart: unless-stopped
+
+  jupyter-notebook:  # New Jupyter Notebook service
+    image: amornpan/jupyternotebook:jupyter_notebook
+    container_name: jupyter_notebook_container
+    ports:
+      - "8888:8888"  # Adjust the port as needed
+    volumes:
+      - ./jupyter_notebook:/home/jovyan/work  # Mount a volume for notebooks
+    restart: unless-stopped
+
+networks:
+  mongodb_network:
