@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS  # Import the CORS class
 from onemap_rain import OneMapRainAPI  # Import the OneMapRainAPI class
+from tambon import Tambon
 import pandas as pd
 from pymongo import MongoClient
 from datetime import datetime, timedelta
@@ -36,7 +37,7 @@ def get_rain_data():
 
 # -----------------------------------------------------------------------------------------------------------
 
-    # Define a function to calculate the average sum of columns
+# Define a function to calculate the average sum of columns
 def calculate_average_sum_of_columns():
     # Connect to your MongoDB instance
     client = MongoClient("mongodb://root:pass12345@113.53.253.56:27017/")
@@ -244,6 +245,16 @@ def get_geojson_data():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+
+
+# Tambon ------------------------------------------
+@app.route('/tambon_avg_rain', methods=['GET'])
+def tambon_avg_rain():
+    api_instance = Tambon()
+    average_sum = api_instance.calculate_average_sum_of_columns()
+    return jsonify({'average_sum_of_columns': average_sum})
+    
 
 
 if __name__ == '__main__':

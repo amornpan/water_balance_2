@@ -5,11 +5,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <title>สมดุลน้ำ ข้อมูลตำบล</title>
   <!-- นำเข้าฟอนต์ Prompt ด้วย <link> แท็กในส่วนหัว -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
+
+     <!-- Include jQuery via CDN -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <!-- ใช้ฟอนต์ Prompt ใน CSS ของคุณ -->
   <style>
@@ -18,8 +21,8 @@
     }
   </style>
 
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   <script src="assets/data/tambon.js"></script>
   <style>
     #map {
@@ -216,10 +219,9 @@
     <div class="col-12 col-xl-4">
 
       <div class="card">
-        <h5 class="card-header">อุณหภูมิ ความชื้น 6 เดือนล่าสุด</h5>
-        <div class="card-body">
-          <canvas id="multiAxisLineChart"></canvas>
-        </div>
+        <h5 class="card-title">ปริมาณน้ำฝนเฉลี่ยย้อนหลัง 6 เดือน</h5>
+            <h5 class="card-text" id="api-value">Loading...</h5>
+            <p class="card-text text-success">2.5% increase since last month</p>
       </div>
 
       <div class="card">
@@ -424,6 +426,27 @@
     var barCtx = document.getElementById("barChart").getContext("2d");
     var barChart = new Chart(barCtx, barChartConfig);
   </script>
+
+<script>
+  // Fetch data from the API and update the HTML content using jQuery
+  $(document).ready(function () {
+    $.get('http://113.53.253.56:5050/tambon_avg_rain', function (data) {
+      // Format the API value with two decimal places
+      var formattedValue = data.average_sum_of_columns.toFixed(2);
+
+      // Update the content of the 'api-value' element with the formatted value
+      $('#api-value').text(formattedValue + ' มม.');
+    }).fail(function () {
+      console.error('Error fetching data from the API');
+      // Handle errors if needed
+    });
+  });
+</script>
+
+ <!-- Include Chart.js library -->
+ <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0"></script>
+
+
 
 </body>
 
