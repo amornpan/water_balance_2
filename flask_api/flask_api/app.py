@@ -9,6 +9,8 @@ from datetime import datetime, timedelta
 app = Flask(__name__)
 CORS(app)  # Enable CORS for your Flask app
 
+
+
 @app.route('/get_rain_data', methods=['GET'])
 def get_rain_data():
     start_year = request.args.get('start_year')
@@ -128,6 +130,15 @@ def get_rainfall_data():
     }
 
     return jsonify(data_for_chartjs)
+
+# -----------------------------------------------------------------------------------------------------------
+
+@app.route('/tambon_get_chart_data_table', methods=['GET'])
+def tambon_get_chart_data_table():
+    api_instance = Tambon()
+    _data = api_instance.tambon_get_chart_data_table()
+    return _data
+
 
 # -----------------------------------------------------------------------------------------------------------
 

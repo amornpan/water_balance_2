@@ -43,4 +43,40 @@ class Tambon:
         average_sum_of_columns = column_sums.mean()
 
         return average_sum_of_columns
+    
+    def tambon_get_chart_data_table(self):
+        # Connect to your MongoDB instance
+        client = MongoClient("mongodb://root:pass12345@113.53.253.56:27017/")
+        db = client.water_balance_db  # Replace with your database name
+
+        # Specify the collection name
+        collection_name = "Metadata_59Tambon"
+
+        # Fetch the data from the MongoDB collection
+        cursor = db[collection_name].find({})  # Retrieve all documents in the collection
+
+        # Convert the cursor to a list of dictionaries
+        data = list(cursor)
+
+        # Create a pandas DataFrame from the data
+        df = pd.DataFrame(data)
+
+        # Rename the columns
+        df = df.rename(columns={"Sum of AREA (Sq": "AREA"})
+
+        # Select the desired columns
+        selected_columns = ["Code_Tambon", "TB_NAME", "AMP_NAME", "PRV_NAME", "AREA"]
+
+        # Create a new DataFrame with only the selected columns
+        selected_df = df[selected_columns]
+
+        selected_df.loc[:, "AREA"] = selected_df["AREA"].apply(lambda x: float(x.get('m)')))
+
+        # Convert the DataFrame to a JSON object and set the content type
+        chart_data = selected_df.to_json(orient='records', force_ascii=False, default_handler=str)
+
+        # Encode the JSON data with UTF-8 encoding
+        chart_data_utf8 = chart_data.encode('utf-8')
+
+        return chart_data_utf8
 

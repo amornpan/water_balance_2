@@ -93,37 +93,42 @@
       อำเภอพนมสารคาม จังหวัดฉะเชิงเทรา
     </p>
 
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-12">
         <div id="map"></div>
       </div>
-    </div>
+    </div> -->
   </div>
 
   <div class="row my-4 mx-2">
-    <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
-      <div class="card">
-        <h5 class="card-header">Customers</h5>
-        <div class="card-body">
-          <h5 class="card-title">345k</h5>
-          <p class="card-text">Feb 1 - Apr 1, United States</p>
-          <p class="card-text text-success">18.2% increase since last month</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3 ">
-      <div class="card">
-        <h5 class="card-header">Revenue</h5>
-        <div class="card-body">
-          <h5 class="card-title">$2.4k</h5>
-          <p class="card-text">Feb 1 - Apr 1, United States</p>
-          <p class="card-text text-success">4.6% increase since last month</p>
-        </div>
-      </div>
-    </div>
     <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
-      <div class="card">
-        <h5 class="card-header">Purchases</h5>
+      <div class="card text-white bg-primary">
+        <h5 class="card-header"><i class="fa-solid fa-cloud-rain"></i> แผนที่ฝน</h5>
+        <div class="card-body">
+          <h5 class="card-title">ปริมาณน้ำฝนเฉลี่ยย้อนหลัง 6 เดือน</h5>
+          <h5 class="card-text" id="api-value">Loading...</h5>
+          <p class="card-text text-success">2.5% increase since last month</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+      <div class="card text-white bg-info">
+        <h5 class="card-header">
+          <i class="fas fa-cloud-sun-rain text-white"></i> สภาพอากาศ
+        </h5>
+        <div class="card-body">
+          <h5 class="card-title">64k</h5>
+          <p class="card-text">Feb 1 - Apr 1, United States</p>
+          <p class="card-text text-success">2.5% increase since last month</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+      <div class="card text-white bg-warning">
+        <h5 class="card-header"><i class="fa-solid fa-water"></i> ความต้องการน้ำ</h5>
         <div class="card-body">
           <h5 class="card-title">43</h5>
           <p class="card-text">Feb 1 - Apr 1, United States</p>
@@ -132,8 +137,8 @@
       </div>
     </div>
     <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
-      <div class="card">
-        <h5 class="card-header">Traffic</h5>
+      <div class="card text-white bg-danger">
+        <h5 class="card-header"><i class="fa-solid fa-magnifying-glass-chart"></i> สมดุลน้ำ</h5>
         <div class="card-body">
           <h5 class="card-title">64k</h5>
           <p class="card-text">Feb 1 - Apr 1, United States</p>
@@ -146,73 +151,26 @@
   <div class="row my-4 mx-2">
     <div class="col-12 col-xl-8 mb-4 mb-lg-0">
       <div class="card">
-        <h5 class="card-header">Latest transactions</h5>
+        <h5 class="card-header">ระบบสมดุลน้ำ: พื้นที่ 59 ตำบล</h5>
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table">
+            <table class="table" id="data-table">
               <thead>
                 <tr>
-                  <th scope="col">Order</th>
-                  <th scope="col">Product</th>
-                  <th scope="col">Customer</th>
-                  <th scope="col">Total</th>
-                  <th scope="col">Date</th>
-                  <th scope="col"></th>
+                  <th>รหัสตำบล</th>
+                  <th>ตำบล</th>
+                  <th>อำเภอ</th>
+                  <th>จังหวัด</th>
+                  <th>ขนาดพื้นที่(มม)</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">17371705</th>
-                  <td>Volt Premium Bootstrap 5 Dashboard</td>
-                  <td>johndoe@gmail.com</td>
-                  <td>€61.11</td>
-                  <td>Aug 31 2020</td>
-                  <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
-                </tr>
-                <tr>
-                  <th scope="row">17370540</th>
-                  <td>Pixel Pro Premium Bootstrap UI Kit</td>
-                  <td>jacob.monroe@company.com</td>
-                  <td>$153.11</td>
-                  <td>Aug 28 2020</td>
-                  <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
-                </tr>
-                <tr>
-                  <th scope="row">17371705</th>
-                  <td>Volt Premium Bootstrap 5 Dashboard</td>
-                  <td>johndoe@gmail.com</td>
-                  <td>€61.11</td>
-                  <td>Aug 31 2020</td>
-                  <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
-                </tr>
-                <tr>
-                  <th scope="row">17370540</th>
-                  <td>Pixel Pro Premium Bootstrap UI Kit</td>
-                  <td>jacob.monroe@company.com</td>
-                  <td>$153.11</td>
-                  <td>Aug 28 2020</td>
-                  <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
-                </tr>
-                <tr>
-                  <th scope="row">17371705</th>
-                  <td>Volt Premium Bootstrap 5 Dashboard</td>
-                  <td>johndoe@gmail.com</td>
-                  <td>€61.11</td>
-                  <td>Aug 31 2020</td>
-                  <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
-                </tr>
-                <tr>
-                  <th scope="row">17370540</th>
-                  <td>Pixel Pro Premium Bootstrap UI Kit</td>
-                  <td>jacob.monroe@company.com</td>
-                  <td>$153.11</td>
-                  <td>Aug 28 2020</td>
-                  <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
-                </tr>
+                <!-- Data will be inserted here using JavaScript -->
               </tbody>
             </table>
+            <div id="pagination"></div>
           </div>
-          <a href="#" class="btn btn-block btn-light">View all</a>
+  
         </div>
       </div>
     </div>
@@ -442,6 +400,100 @@
     });
   });
 </script>
+
+<script>
+  const rowsPerPage = 10;
+  let currentPage = 1;
+
+  // Function to populate the table with data for the current page
+  function populateTable(data, page) {
+    const dataTable = document.getElementById('data-table').getElementsByTagName('tbody')[0];
+    dataTable.innerHTML = ''; // Clear existing table rows
+
+    const startIdx = (page - 1) * rowsPerPage;
+    const endIdx = startIdx + rowsPerPage;
+
+    for (let i = startIdx; i < Math.min(endIdx, data.length); i++) {
+      const row = data[i];
+      const newRow = dataTable.insertRow();
+      newRow.insertCell(0).textContent = row.Code_Tambon;
+          newRow.insertCell(1).textContent = row.TB_NAME;
+          newRow.insertCell(2).textContent = row.AMP_NAME;
+          newRow.insertCell(3).textContent = row.PRV_NAME;
+          newRow.insertCell(4).textContent = row.AREA;
+      
+    }
+  }
+
+  // Function to render pagination controls
+  function renderPagination(data) {
+    const totalPages = Math.ceil(data.length / rowsPerPage);
+    const pagination = document.getElementById('pagination');
+    pagination.innerHTML = '';
+
+    for (let i = 1; i <= totalPages; i++) {
+      const pageLink = document.createElement('a');
+      pageLink.href = '#';
+      pageLink.textContent = i;
+
+      pageLink.addEventListener('click', () => {
+        currentPage = i;
+        populateTable(data, currentPage);
+        highlightCurrentPage();
+      });
+
+      pagination.appendChild(pageLink);
+    }
+
+    highlightCurrentPage();
+  }
+
+  // Function to highlight the current page in pagination controls
+  function highlightCurrentPage() {
+    const pageLinks = document.getElementById('pagination').getElementsByTagName('a');
+    for (let i = 0; i < pageLinks.length; i++) {
+      if (i === currentPage - 1) {
+        pageLinks[i].classList.add('active');
+      } else {
+        pageLinks[i].classList.remove('active');
+      }
+    }
+  }
+
+  // Make an AJAX request to fetch data from the API
+  document.addEventListener('DOMContentLoaded', function () {
+    fetch('http://113.53.253.56:5050/tambon_get_chart_data_table')
+      .then(response => response.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          renderPagination(data);
+          populateTable(data, currentPage);
+        } else {
+          console.error('API response is not an array:', data);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching data from the API:', error);
+      });
+  });
+</script>
+
+<style>
+  /* Add some basic styles for pagination */
+  #pagination {
+    margin-top: 10px;
+  }
+
+  #pagination a {
+    margin-right: 5px;
+    text-decoration: none;
+    color: #007bff;
+  }
+
+  #pagination a.active {
+    font-weight: bold;
+  }
+</style>
 
  <!-- Include Chart.js library -->
  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0"></script>
