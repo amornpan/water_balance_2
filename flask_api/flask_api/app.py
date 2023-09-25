@@ -84,6 +84,14 @@ def get_onemap_avg_rain_lasted_6_months():
 
 # -----------------------------------------------------------------------------------------------------------
 
+@app.route('/api/tambon_rainfall_data', methods=['GET'])
+def tambon_get_rainfall_data():
+    api_instance = Tambon()
+    geojson_data = api_instance.tambon_get_rainfall_data()
+    return geojson_data
+
+# -----------------------------------------------------------------------------------------------------------
+
 @app.route('/api/rainfall_data', methods=['GET'])
 def get_rainfall_data():
     # Connect to your MongoDB instance
