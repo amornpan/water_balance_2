@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <title>สมดุลน้ำ ข้อมูลตำบล</title>
+  <!-- นำเข้าฟอนต์ Prompt ด้วย <link> แท็กในส่วนหัว -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+     <!-- Include jQuery via CDN -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- ใช้ฟอนต์ Prompt ใน CSS ของคุณ -->
+  <style>
+    body {
+      font-family: 'Prompt', sans-serif;
+    }
+  </style>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="assets/data/tambon.js"></script>
+  <style>
+    #map {
+      position: relative;
+      border: 1px solid black;
+      border-radius: 8px;
+      height: 400px;
+      width: 100%;
+    }
+  </style>
+  <link rel="stylesheet" href="//unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css"
+    type="text/css">
+  <script src="//unpkg.com/leaflet-gesture-handling"></script>
+
+</head>
+
+<body>
+  <!-- Nav bar -->
+  <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a href="/" class="navbar-brand">
+          Water Balance (ระบบสมดุลน้ำ)
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a href="index.html" class="nav-link" aria-current="page">หน้าแรก</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">สถานการณ์น้ำ</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle" id="submenuDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">สมดุลน้ำ</a>
+              <ul class="dropdown-menu" aria-labelledby="submenuDropdown">
+                <li><a class="dropdown-item" href="dashboard_tambon_page.html">พื้นที่บริเวณใกล้เคียง (59 ตำบล)</a></li>
+                <li><a class="dropdown-item" href="dashboard_mooban_page.html">พื้นที่ขยายผลหมู่บ้านรอบศูนย์ศึกษาฯ</a>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="about.html" class="nav-link">เพิ่มเติม</a>
+            </li>
+          </ul>
+          <div class="mx-3">
+            <!-- Content of the div goes here -->
+          </div>
+          <div class="text-end">
+            <a href="login.html" class="btn btn-outline-primary me-2">เข้าสู่ระบบ</a>
+            <!-- Add any additional links or buttons here -->
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <!-- Nav bar -->
+
+  <div class="container-fluid">
+
+    <h1 class="h2 my-3 mx-3">ระบบสมดุลน้ำ: พื้นที่บริเวณใกล้เคียง (59 ตำบล)</h1>
+    <p class="mx-3">ศูนย์ศึกษาการพัฒนาเขาหินซ้อนอันเนื่องมาจากพระราชดำริ
+      อำเภอพนมสารคาม จังหวัดฉะเชิงเทรา
+    </p>
+
+    <!-- <div class="row">
+      <div class="col-12">
+        <div id="map"></div>
+      </div>
+    </div> -->
+  </div>
+
+  <div class="row my-4 mx-2">
+    <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+      <div class="card text-white bg-primary">
+        <h5 class="card-header"><i class="fa-solid fa-cloud-rain"></i> แผนที่ฝน</h5>
+        <div class="card-body">
+          <h5 class="card-title">ปริมาณน้ำฝนเฉลี่ยย้อนหลัง 6 เดือน</h5>
+          <h5 class="card-text" id="api-value">Loading...</h5>
+          <p class="card-text text-success">2.5% increase since last month</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+      <div class="card text-white bg-info">
+        <h5 class="card-header">
+          <i class="fas fa-cloud-sun-rain text-white"></i> สภาพอากาศ
+        </h5>
+        <div class="card-body">
+          <h5 class="card-title">64k</h5>
+          <p class="card-text">Feb 1 - Apr 1, United States</p>
+          <p class="card-text text-success">2.5% increase since last month</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+      <div class="card text-white bg-warning">
+        <h5 class="card-header"><i class="fa-solid fa-water"></i> ความต้องการน้ำ</h5>
+        <div class="card-body">
+          <h5 class="card-title">43</h5>
+          <p class="card-text">Feb 1 - Apr 1, United States</p>
+          <p class="card-text text-danger">2.6% decrease since last month</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+      <div class="card text-white bg-danger">
+        <h5 class="card-header"><i class="fa-solid fa-magnifying-glass-chart"></i> สมดุลน้ำ</h5>
+        <div class="card-body">
+          <h5 class="card-title">64k</h5>
+          <p class="card-text">Feb 1 - Apr 1, United States</p>
+          <p class="card-text text-success">2.5% increase since last month</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row my-4 mx-2">
+    <div class="col-12 col-xl-8 mb-4 mb-lg-0">
+      <div class="card">
+        <h5 class="card-header">ระบบสมดุลน้ำ: พื้นที่ 59 ตำบล</h5>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table" id="data-table">
+              <thead>
+                <tr>
+                  <th>รหัสตำบล</th>
+                  <th>ตำบล</th>
+                  <th>อำเภอ</th>
+                  <th>จังหวัด</th>
+                  <th>ขนาดพื้นที่(มม)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Data will be inserted here using JavaScript -->
+              </tbody>
+            </table>
+            <div id="pagination"></div>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-xl-4">
+
+      <div class="card">
+        <h5 class="card-header">ปริมาณน้ำฝนสะสม 6 เดือนล่าสุด</h5>
+        <div class="card-body">
+          <canvas id="rainfallChart"></canvas>
+        </div>
+      </div>
+
+      <div class="card my-4">
+        <h5 class="card-header">ปริมาณน้ำฝน 6 เดือนล่าสุด</h5>
+        <div class="card-body">
+          <canvas id="barChart"></canvas>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- footer -->
+  <div class="container">
+
+    <div class="container">
+      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <div class="col-md-4 d-flex align-items-center">
+          <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+            <svg class="bi" width="30" height="24">
+              <use xlink:href="#bootstrap"></use>
+            </svg>
+          </a>
+          <span class="mb-3 mb-md-0 text-body-secondary">© 2023 Water Balance, Inc</span>
+        </div>
+
+        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+          <li class="ms-3"><a class="text-body-secondary" href="#"><i class="fa fa-twitter"></i></li>
+          <li class="ms-3"><a class="text-body-secondary" href="#"><i class="fa fa-facebook"></i></li>
+          <li class="ms-3"><a class="text-body-secondary" href="#"><i class="fa fa-instagram"></i></li>
+        </ul>
+      </footer>
+    </div>
+
+  </div>
+  <!-- /footer -->
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Ensure the GeoJSON data is loaded before using it
+    //var map = L.map('map').setView([13.605215264798368, 101.54519139510974], 9);
+    var map = L.map('map', {
+      // keyboard: false,
+      // dragging: false,
+      // zoomControl: false,
+      // boxZoom: false,
+      // doubleClickZoom: false,
+      // scrollWheelZoom: false,
+      // tap: false,
+      // touchZoom: false,
+      // minZoom: 9,
+      // maxZoom: 0,
+      zoom: 9,
+      center: [13.605215264798368, 101.54519139510974],
+      gestureHandling: true
+    });
+
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+
+    var geojsonLayer = L.geoJSON(tambon, {
+      style: function (feature) {
+        var accumulatedRain = feature.properties.Accumulated_Rain;
+        return {
+          fillColor: getColor(accumulatedRain),
+          weight: 1,
+          opacity: 1,
+          color: 'darkgray',
+          fillOpacity: 0.7
+        };
+      },
+      onEachFeature: function (feature, layer) {
+        layer.on('mouseover', function (e) {
+          var properties = e.target.feature.properties;
+          var accumulatedRain = properties.Accumulated_Rain;
+
+          // // Change the polygon's color when hovering over
+          // layer.setStyle({
+          //   fillColor: 'red', // You can change this color to your preference
+          //   fillOpacity: 0.7
+          // });
+
+          // Create a popup to display the Accumulated_Rain value
+          var popupContent = "ตำบล: " + properties.TB_NAME + "<br>" +
+            "อำเภอ: " + properties.AMP_NAME + "<br>" +
+            "จังหวัด: " + properties.PRV_NAME + "<br>" +
+            "ขนาดพื้นที่: " + properties.AREA_SQKM + " sq.km <br>" +
+            "ปริมาณน้ำฝนสะสม: " + accumulatedRain + " mm";
+          layer.bindPopup(popupContent).openPopup();
+        });
+
+        layer.on('mouseout', function () {
+          // Revert the polygon's color when mouseout
+          var accumulatedRain = feature.properties.Accumulated_Rain;
+          layer.setStyle({
+            fillColor: getColor(accumulatedRain),
+            fillOpacity: 0.7
+            
+          });
+
+          // Close the popup
+          layer.closePopup();
+        });
+      }
+    }).addTo(map);
+
+    // Define a color scale function
+    function getColor(accumulatedRain) {
+      return accumulatedRain >= 100 ? '#800026' :
+        accumulatedRain >= 50 ? '#BD0026' :
+          accumulatedRain >= 25 ? '#E31A1C' :
+            accumulatedRain >= 10 ? '#FC4E2A' :
+              accumulatedRain >= 5 ? '#FD8D3C' :
+                accumulatedRain >= 2 ? '#FEB24C' :
+                  '#FFEDA0';
+    }
+
+
+  </script>
+
+
+  <!-- Include Chart.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0"></script>
+
+  <script>
+    // สร้างข้อมูลตัวอย่างสำหรับ Multi Axis Line Chart
+    var data = {
+      labels: ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย."],
+      datasets: [
+        {
+          label: "อุณหภูมิ (°C)",
+          borderColor: "rgb(255, 99, 132)",
+          backgroundColor: "rgba(255, 99, 132, 0.2)",
+          yAxisID: "y1",
+          data: [10, 12, 15, 18, 22, 25],
+        },
+        {
+          label: "ความชื้น (%)",
+          borderColor: "rgb(75, 192, 192)",
+          backgroundColor: "rgba(75, 192, 192, 0.2)",
+          yAxisID: "y2",
+          data: [60, 55, 50, 45, 40, 35],
+        },
+      ],
+    };
+
+    // กำหนดการตั้งค่าของกราฟ
+    var config = {
+      type: "line",
+      data: data,
+      options: {
+        scales: {
+          y1: {
+            type: "linear",
+            position: "left",
+          },
+          y2: {
+            type: "linear",
+            position: "right",
+          },
+        },
+      },
+    };
+
+    // ดึง canvas element และสร้างกราฟ
+    var ctx = document.getElementById("multiAxisLineChart").getContext("2d");
+    var myChart = new Chart(ctx, config);
+
+
+    // สร้างข้อมูลตัวอย่างสำหรับ Bar Chart
+    var barChartData = {
+      labels: ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย."],
+      datasets: [
+        {
+          label: "ปริมาณน้ำฝน (มม.)",
+          backgroundColor: "rgb(54, 162, 235)",
+          borderColor: "rgb(54, 162, 235)",
+          data: [30, 40, 20, 10, 50, 45],
+        },
+      ],
+    };
+
+    // กำหนดการตั้งค่าของ Bar Chart
+    var barChartConfig = {
+      type: "bar",
+      data: barChartData,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    };
+
+    // ดึง canvas element และสร้าง Bar Chart
+    var barCtx = document.getElementById("barChart").getContext("2d");
+    var barChart = new Chart(barCtx, barChartConfig);
+  </script>
+
+<script>
+  // Fetch data from the API and update the HTML content using jQuery
+  $(document).ready(function () {
+    $.get('http://113.53.253.56:5050/tambon_avg_rain', function (data) {
+      // Format the API value with two decimal places
+      var formattedValue = data.average_sum_of_columns.toFixed(2);
+
+      // Update the content of the 'api-value' element with the formatted value
+      $('#api-value').text(formattedValue + ' มม.');
+    }).fail(function () {
+      console.error('Error fetching data from the API');
+      // Handle errors if needed
+    });
+  });
+</script>
+
+<script>
+  const rowsPerPage = 10;
+  let currentPage = 1;
+
+  // Function to populate the table with data for the current page
+  function populateTable(data, page) {
+    const dataTable = document.getElementById('data-table').getElementsByTagName('tbody')[0];
+    dataTable.innerHTML = ''; // Clear existing table rows
+
+    const startIdx = (page - 1) * rowsPerPage;
+    const endIdx = startIdx + rowsPerPage;
+
+    for (let i = startIdx; i < Math.min(endIdx, data.length); i++) {
+      const row = data[i];
+      const newRow = dataTable.insertRow();
+      newRow.insertCell(0).textContent = row.Code_Tambon;
+          newRow.insertCell(1).textContent = row.TB_NAME;
+          newRow.insertCell(2).textContent = row.AMP_NAME;
+          newRow.insertCell(3).textContent = row.PRV_NAME;
+          newRow.insertCell(4).textContent = row.AREA;
+      
+    }
+  }
+
+  // Function to render pagination controls
+  function renderPagination(data) {
+    const totalPages = Math.ceil(data.length / rowsPerPage);
+    const pagination = document.getElementById('pagination');
+    pagination.innerHTML = '';
+
+    for (let i = 1; i <= totalPages; i++) {
+      const pageLink = document.createElement('a');
+      pageLink.href = '#';
+      pageLink.textContent = i;
+
+      pageLink.addEventListener('click', () => {
+        currentPage = i;
+        populateTable(data, currentPage);
+        highlightCurrentPage();
+      });
+
+      pagination.appendChild(pageLink);
+    }
+
+    highlightCurrentPage();
+  }
+
+  // Function to highlight the current page in pagination controls
+  function highlightCurrentPage() {
+    const pageLinks = document.getElementById('pagination').getElementsByTagName('a');
+    for (let i = 0; i < pageLinks.length; i++) {
+      if (i === currentPage - 1) {
+        pageLinks[i].classList.add('active');
+      } else {
+        pageLinks[i].classList.remove('active');
+      }
+    }
+  }
+
+  // Make an AJAX request to fetch data from the API
+  document.addEventListener('DOMContentLoaded', function () {
+    fetch('http://113.53.253.56:5050/tambon_get_chart_data_table')
+      .then(response => response.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          renderPagination(data);
+          populateTable(data, currentPage);
+        } else {
+          console.error('API response is not an array:', data);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching data from the API:', error);
+      });
+  });
+</script>
+
+<style>
+  /* Add some basic styles for pagination */
+  #pagination {
+    margin-top: 10px;
+  }
+
+  #pagination a {
+    margin-right: 5px;
+    text-decoration: none;
+    color: #007bff;
+  }
+
+  #pagination a.active {
+    font-weight: bold;
+  }
+</style>
+
+
+<script>
+  $(document).ready(function () {
+    // Fetch data from your Flask API
+    $.getJSON("http://113.53.253.56:5050/api/tambon_rainfall_data", function (data) {
+      var x_axis = data.x_axis;
+      var sum_rain = data.SUM_RAIN;
+
+      // Create a Chart.js chart
+      var ctx = document.getElementById('rainfallChart').getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: x_axis,  // X-axis labels
+          datasets: [{
+            label: 'Sum of Rainfall (mm)',
+            data: sum_rain,  // Y-axis data
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                callback: function (value, index, values) {
+                  return value.toFixed(2); // Format Y-axis values as 00.00
+                }
+              }
+            }
+          }
+        }
+      });
+    });
+  });
+</script>
+
+ <!-- Include Chart.js library -->
+ <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0"></script>
+
+
+
+</body>
+
+</html>

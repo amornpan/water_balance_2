@@ -1,0 +1,118 @@
+---
+jupyter:
+  jupytext:
+    text_representation:
+      extension: .Rmd
+      format_name: rmarkdown
+      format_version: '1.2'
+      jupytext_version: 1.14.4
+  kernelspec:
+    display_name: Python 3 (ipykernel)
+    language: python
+    name: python3
+---
+
+```{python}
+import pandas as pd
+import psycopg2
+import uuid
+import os
+
+# CSV file path
+csv_file_path = 'your_file.csv'
+
+# Extract table name from CSV file name (remove file extension if present)
+table_name = os.path.splitext(os.path.basename(csv_file_path))[0]
+
+# Connect to PostgreSQL
+conn = psycopg2.connect(
+    host="your_host",
+    database="your_database",
+    user="your_username",
+    password="your_password"
+)
+
+# Create a cursor
+cursor = conn.cursor()
+
+```
+
+```{python}
+
+```
+
+```{python}
+
+# Read the CSV file into a DataFrame
+df = pd.read_csv(csv_file_path)
+
+# Check if the table already exists
+cursor.execute(f"SELECT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = '{table_name}')")
+table_exists = cursor.fetchone()[0]
+
+# If the table exists, append data; otherwise, create a new table
+if table_exists:
+    # Append data to the existing table
+    for index, row in df.iterrows():
+        # Generate a new UUID for the primary key column
+        row['your_primary_key_column'] = str(uuid.uuid4())
+        insert_sql = f"INSERT INTO {table_name} ({', '.join(df.columns)}) VALUES ({', '.join(['%s'] * len(df.columns))})"
+        cursor.execute(insert_sql, tuple(row))
+else:
+    # Automatically set data types to string for all columns (except primary key)
+    data_types = {col: 'text' for col in df.columns if col != 'your_primary_key_column'}
+
+    # Use UUID as the primary key
+    data_types['your_primary_key_column'] = 'UUID'
+
+    # Create the table with the specified data types
+    create_table_sql = f"""
+    CREATE TABLE {table_name} (
+        {" ,".join([f"{col} {data_types[col]}" for col in df.columns])
+    );
+    """
+
+    cursor.execute(create_table_sql)
+
+    # Insert data into the new PostgreSQL table
+    for index, row in df.iterrows():
+        # Generate a new UUID for the primary key column
+        row['your_primary_key_column'] = str(uuid.uuid4())
+        insert_sql = f"INSERT INTO {table_name} ({', '.join(df.columns)}) VALUES ({', '.join(['%s'] * len(df.columns))})"
+        cursor.execute(insert_sql, tuple(row))
+
+conn.commit()
+conn.close()
+```
+
+```{python}
+import psycopg2
+
+# Define your PostgreSQL connection parameters
+connection_params = {
+    "host": "113.53.253.56",
+    "database": "waterbalance",
+    "user": "postgres",
+    "password": "p@ssw0rd!@#$"
+}
+
+try:
+    # Attempt to connect to the PostgreSQL database
+    conn = psycopg2.connect(**connection_params)
+
+    # Check the connection status
+    if conn.closed == 0:
+        print("Connection is open.")
+    else:
+        print("Connection is closed.")
+
+    # Close the connection
+    conn.close()
+except psycopg2.Error as e:
+    print(f"Error: {e}")
+
+```
+
+```{python}
+
+```

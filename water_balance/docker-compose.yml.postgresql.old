@@ -1,0 +1,53 @@
+version: '3.7'
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx_water_balance
+    ports:
+      - "113.53.253.56:7890:7890"
+    volumes:
+      - ./water_balance:/etc/nginx/conf.d
+      - ./water_balance:/var/www/html
+    restart: always
+        
+    networks:
+      - water_balance_net
+
+# PostgreSQL Database
+  db:
+    image: postgres
+    container_name: waterbalance_db  # Optional: Set a specific container name
+    volumes:
+      - db_data:/var/lib/postgresql/data  # Mount a volume for database data
+      - ./system_configuration.py:/docker-entrypoint-initdb.d/system_configuration.py
+    restart: always
+    ports:
+      - '5432:5432'  # Map host port 5432 to container port 5432
+    environment:    
+      POSTGRES_PASSWORD: POSTGRES_PASSWORD
+    networks:
+      - water_balance_net
+
+  # pgAdmin 4
+  pg4:
+    image: dpage/pgadmin4
+    container_name: pgadmin4  # Optional: Set a specific container name
+    
+    depends_on:
+      - db  # Ensure the database service is ready before starting pgAdmin
+    restart: always
+    ports:
+      - '8080:8080'  # Map host port 8080 to container port 80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: PGADMIN_DEFAULT_EMAIL  # Set the pgAdmin email
+      PGADMIN_DEFAULT_PASSWORD: DATABASE_PASSWORD  # Set the pgAdmin password
+    networks:
+      - water_balance_net
+
+networks:
+  water_balance_net:
+
+volumes:
+  db_data:  # Define a volume for the database data
+  shared_data: 
